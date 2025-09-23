@@ -1,0 +1,241 @@
+/**
+ * Replant Global Styles (최소화된 버전)
+ * 실제로 사용되는 기본 스타일만 포함
+ */
+
+/* 기본 리셋 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 기존 색상 유지 (fallback) */
+  background-color: #f5f5f5;
+  color: #333;
+  /* CSS 변수로 테마 지원 추가 (기존 값과 동일하게 설정) */
+  background-color: var(--color-background-body, #f5f5f5);
+  color: var(--color-text-primary, #333);
+}
+
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* 실제 사용되는 컨테이너 스타일 */
+.container {
+  max-width: min(600px, 100vw - 2rem);
+  margin: 0 auto;
+  padding: 0 1rem;
+  min-height: 100vh;
+  /* 기존 배경색 유지 (fallback) */
+  background-color: white;
+  /* CSS 변수로 테마 지원 추가 */
+  background-color: var(--color-background-primary, white);
+}
+
+/* Responsive container adjustments */
+@media (max-width: 640px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+/* 페이지 콘텐츠 스타일 (실제 사용됨) */
+.page-content {
+  padding: 0;
+  min-height: 100vh;
+  margin: 0;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* 터치 디바이스 최적화 (실제 사용됨) */
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* 스와이프 인터랙션 (실제 사용됨) */
+.swipeable {
+  cursor: grab;
+}
+
+.swipeable:active {
+  cursor: grabbing;
+}
+
+/* 스와이프 애니메이션 */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.05) translateY(0px);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1) translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95) translateY(-5px);
+  }
+}
+
+/* Game Start 애니메이션 */
+@keyframes gameStartPulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+/* 앱 전용 터치 스타일 */
+.app-touch-feedback {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+/* 터치 최적화 */
+.touch-optimized {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* 성능 최적화 */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* 앱 전용 버튼 스타일 */
+.app-button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+/* 앱 전용 카드 스타일 */
+.app-card {
+  touch-action: pan-y;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+/* 감정 태그 리스트 반응형 그리드 */
+.replant-emotion-tag-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: 100%;
+  padding: 0 12px; /* 기본 여백 추가 (웹에서도 적용) */
+}
+
+/* 모바일 앱에서만 여백 추가 */
+@media (max-width: 768px) {
+  .replant-emotion-tag-list {
+    padding: 0 12px;
+  }
+}
+
+/* 작은 모바일 화면에서 더 많은 여백 */
+@media (max-width: 375px) {
+  .replant-emotion-tag-list {
+    padding: 0 16px;
+  }
+}
+
+/* 작은 화면 (320px 이하) */
+@media (max-width: 320px) {
+  .replant-emotion-tag-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 중간 화면 (321px-480px) */
+@media (min-width: 321px) and (max-width: 480px) {
+  .replant-emotion-tag-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 큰 화면 (481px 이상) */
+@media (min-width: 481px) {
+  .replant-emotion-tag-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 감정 태그 버튼 최적화 - 반응형 */
+.replant-emotion-tag {
+  height: 3rem !important; /* 48px -> rem */
+  min-width: 5rem !important; /* 80px -> rem */
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.25rem !important; /* 4px -> rem */
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  font-size: clamp(0.75rem, 2.5vw, 0.875rem) !important; /* 반응형 폰트 */
+}
+
+/* 모바일에서 더 큰 터치 타겟 */
+@media (max-width: 640px) {
+  .replant-emotion-tag {
+    height: 3.25rem !important;
+    min-width: 5.5rem !important;
+  }
+}

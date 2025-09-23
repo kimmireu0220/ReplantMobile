@@ -1,0 +1,134 @@
+/**
+ * Replant Component Styles
+ * Global styles and animations for the component system
+ */
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Scrollbar hiding for category tabs */
+.category-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.category-tabs {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Category Filter Scrollbar Hiding */
+.category-filter {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Category Filter Scrollbar Hiding for Webkit browsers */
+.category-filter::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+.category-filter::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.category-filter::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Hamburger Button Styles */
+.hamburger-button {
+  /* Ensure consistent positioning with responsive spacing */
+  position: fixed !important;
+  top: 1rem !important;
+  left: 1rem !important;
+  z-index: 1000 !important;
+  
+  /* Prevent style conflicts */
+  transform: none !important;
+  outline: none !important;
+  
+  /* Ensure proper sizing with minimum touch target */
+  min-width: 44px !important;
+  min-height: 44px !important;
+  width: 2.75rem !important;
+  height: 2.75rem !important;
+  
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.hamburger-button:focus {
+  outline: 2px solid #22c55e !important;
+  outline-offset: 2px !important;
+}
+
+.hamburger-button:active {
+  transform: scale(0.95) !important;
+}
+
+/* Component base styles */
+.replant-button:active {
+  transform: translateY(0);
+}
+
+
+
+.replant-emotion-tag:active {
+  transform: scale(0.98);
+}
+
+.replant-mission-check-button:active {
+  transform: scale(0.95);
+}
+
+/* Focus styles for accessibility */
+.replant-button:focus-visible,
+.replant-emotion-tag:focus-visible,
+.replant-mission-check-button:focus-visible {
+  outline: 2px solid #22c55e;
+  outline-offset: 2px;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .replant-emotion-tag-list {
+    justify-content: center;
+  }
+  
+  .replant-character-level-detailed {
+    padding: 1rem;
+  }
+  
+  .hamburger-button {
+    /* Ensure visibility on mobile with larger touch target */
+    z-index: 1001 !important;
+    top: 1.25rem !important;
+    left: 1.25rem !important;
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+}
+
+/* Tablet optimization */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .hamburger-button {
+    top: 1.5rem !important;
+    left: 1.5rem !important;
+  }
+}
+
+/* Large screen optimization */
+@media (min-width: 1024px) {
+  .hamburger-button {
+    top: 1rem !important;
+    left: 1rem !important;
+  }
+}

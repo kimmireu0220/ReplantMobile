@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다크모드 검증 테스트</title>
+    <style>
+        /* 기본 라이트 테마 CSS 변수들 */
+        :root {
+            --color-background-body: #f5f5f5;
+            --color-background-primary: #ffffff;
+            --color-text-primary: #333;
+            --color-primary-600: #16a34a;
+            --color-text-inverse: #ffffff;
+            --color-gray-100: #f3f4f6;
+            --color-border-light: #e5e7eb;
+        }
+
+        /* 다크 테마 오버라이드 */
+        [data-theme="dark"] {
+            --color-background-body: #0f172a;
+            --color-background-primary: #1e293b;
+            --color-text-primary: #f1f5f9;
+            --color-primary-600: #16a34a;
+            --color-text-inverse: #0f172a;
+            --color-gray-100: #374151;
+            --color-border-light: #374151;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--color-background-body);
+            color: var(--color-text-primary);
+            padding: 20px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .container {
+            background-color: var(--color-background-primary);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--color-border-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .button {
+            background-color: var(--color-primary-600);
+            color: var(--color-text-inverse);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 8px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .button-secondary {
+            background-color: var(--color-gray-100);
+            color: var(--color-text-primary);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--color-background-primary);
+            border: 2px solid var(--color-border-light);
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        h1, h2 {
+            color: var(--color-text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-icon">☀️</span>
+        <span id="theme-text">라이트</span>
+    </div>
+
+    <div class="container">
+        <h1>Replant 다크모드 검증 테스트</h1>
+
+        <h2>UI 컴포넌트 테스트</h2>
+        <button class="button">Primary Button</button>
+        <button class="button button-secondary">Secondary Button</button>
+
+        <h2>색상 변수 테스트</h2>
+        <div style="display: flex; gap: 10px; margin: 20px 0;">
+            <div style="width: 50px; height: 50px; background: var(--color-primary-600); border-radius: 4px;" title="Primary"></div>
+            <div style="width: 50px; height: 50px; background: var(--color-background-primary); border: 1px solid var(--color-border-light); border-radius: 4px;" title="Background"></div>
+            <div style="width: 50px; height: 50px; background: var(--color-gray-100); border-radius: 4px;" title="Gray"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let isDark = false;
+
+        function toggleTheme() {
+            isDark = !isDark;
+            const root = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+
+            if (isDark) {
+                root.setAttribute('data-theme', 'dark');
+                icon.textContent = '🌙';
+                text.textContent = '다크';
+            } else {
+                root.removeAttribute('data-theme');
+                icon.textContent = '☀️';
+                text.textContent = '라이트';
+            }
+        }
+    </script>
+</body>
+</html>

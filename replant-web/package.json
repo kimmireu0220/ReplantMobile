@@ -1,0 +1,79 @@
+{
+  "name": "replant",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://kimmireu0220.github.io/Replant",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.53.0",
+    "date-fns": "^2.30.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0",
+    "react-scripts": "^5.0.1"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "test:watch": "craco test --watch",
+    "test:coverage": "craco test --coverage --watchAll=false",
+    "test:ci": "craco test --coverage --ci --watchAll=false --maxWorkers=2",
+    "test:debug": "craco test --detectOpenHandles --runInBand",
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && gh-pages -d build",
+    "check-rules": "node scripts/check-cursor-rules.js",
+    "empty:mission-photos": "node scripts/empty-mission-photos.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
+    },
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/setupTests.js",
+      "!src/**/*.test.js",
+      "!src/**/__tests__/**",
+      "!src/constants/**",
+      "!src/data/**"
+    ],
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ]
+  },
+  "overrides": {
+    "postcss": "^8.4.38",
+    "nth-check": "^2.0.1"
+  },
+  "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
+    "gh-pages": "^6.3.0"
+  }
+}

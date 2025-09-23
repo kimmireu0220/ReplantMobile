@@ -1,0 +1,375 @@
+/* 동기화 상태 인디케이터 스타일 */
+
+.sync-indicator {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #6366f1;
+  color: white;
+  border-radius: 20px;
+  padding: 8px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 200px;
+  max-width: 400px;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+  user-select: none;
+  backdrop-filter: blur(10px);
+}
+
+.sync-indicator-top {
+  top: 60px;
+  animation: slideDownIn 0.3s ease-out;
+}
+
+.sync-indicator-bottom {
+  bottom: 20px;
+  animation: slideUpIn 0.3s ease-out;
+}
+
+.sync-indicator.clickable {
+  cursor: pointer;
+}
+
+.sync-indicator.clickable:hover {
+  transform: translateX(-50%) scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.sync-indicator.clickable:active {
+  transform: translateX(-50%) scale(0.98);
+}
+
+/* 동기화 상태별 스타일 */
+.sync-indicator.sync-in-progress {
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+}
+
+.sync-indicator.sync-needed {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  animation: pulse 2s infinite;
+}
+
+.sync-indicator.sync-paused {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.sync-indicator.sync-success {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.sync-indicator.sync-error {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  animation: shake 0.5s ease-in-out;
+}
+
+/* 콘텐츠 레이아웃 */
+.sync-indicator-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sync-indicator-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.sync-icon {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+}
+
+.sync-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.sync-text {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.sync-subtitle {
+  font-weight: 400;
+  font-size: 12px;
+  opacity: 0.9;
+  line-height: 1.2;
+}
+
+/* 스피너 */
+.sync-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.spinner-ring {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+/* 확장 버튼 */
+.sync-expand-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sync-expand-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sync-expand-button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 1px;
+}
+
+.expand-arrow {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+  transform: rotate(0deg);
+}
+
+.expand-arrow.expanded {
+  transform: rotate(180deg);
+}
+
+/* 세부 정보 */
+.sync-details {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideDown 0.2s ease-out;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 13px;
+}
+
+.detail-label {
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.detail-value {
+  font-weight: 600;
+  text-align: right;
+}
+
+.detail-group {
+  margin: 8px 0;
+}
+
+.detail-group:not(:last-child) {
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 동기화 액션 */
+.sync-actions {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+}
+
+.sync-action-button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sync-action-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.sync-action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.sync-action-button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 1px;
+}
+
+/* 애니메이션 */
+@keyframes slideDownIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes slideUpIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 300px;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  25% {
+    transform: translateX(-50%) translateY(-2px);
+  }
+  75% {
+    transform: translateX(-50%) translateY(2px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .sync-indicator {
+    left: 16px;
+    right: 16px;
+    transform: none;
+    max-width: none;
+  }
+  
+  .sync-indicator-top {
+    transform: none;
+  }
+  
+  .sync-indicator-bottom {
+    transform: none;
+  }
+  
+  .sync-indicator.clickable:hover {
+    transform: scale(1.02);
+  }
+  
+  .sync-indicator.clickable:active {
+    transform: scale(0.98);
+  }
+  
+  @keyframes slideDownIn {
+    from {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideUpIn {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes shake {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    25% {
+      transform: translateY(-2px);
+    }
+    75% {
+      transform: translateY(2px);
+    }
+  }
+}
+
+/* 다크 모드 지원 */
+@media (prefers-color-scheme: dark) {
+  .sync-indicator {
+    backdrop-filter: blur(20px);
+  }
+}
+
+/* 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+  .sync-indicator,
+  .expand-arrow,
+  .sync-action-button,
+  .spinner-ring {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .sync-indicator.sync-needed {
+    animation: none !important;
+  }
+}
