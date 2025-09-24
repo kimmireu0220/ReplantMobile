@@ -15,6 +15,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getData, updateData, getStorageKeys } from '../services';
 import { useUser } from '../contexts/UserContext';
+import { logError } from '../utils/logger';
 
 export const useMission = (addExperienceByCategory) => {
   const { currentNickname } = useUser();
@@ -44,7 +45,7 @@ export const useMission = (addExperienceByCategory) => {
 
       setMissions(sortedMissions);
     } catch (loadError) {
-      console.error('미션 로드 실패:', loadError);
+      logError('미션 로드 실패', loadError, { currentNickname });
       setError(loadError.message);
     } finally {
       setLoading(false);
@@ -98,7 +99,7 @@ export const useMission = (addExperienceByCategory) => {
         unlocked: false // 나중에 캐릭터 해제 로직 추가
       };
     } catch (completeError) {
-      console.error('미션 완료 실패:', completeError);
+      logError('미션 완료 실패', completeError, { missionId, photoUrl });
       return { success: false, error: completeError.message };
     }
   }, [missions, addExperienceByCategory, currentNickname]);
@@ -132,7 +133,7 @@ export const useMission = (addExperienceByCategory) => {
 
       return { success: true };
     } catch (uncompleteError) {
-      console.error('미션 완료 취소 실패:', uncompleteError);
+      logError('미션 완료 취소 실패', uncompleteError, { missionId });
       return { success: false, error: uncompleteError.message };
     }
   }, [missions, currentNickname]);

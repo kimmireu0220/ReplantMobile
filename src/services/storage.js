@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logError } from '../utils/logger';
 
 // 로컬 저장소 키 상수
 export const STORAGE_KEYS = {
@@ -30,7 +31,7 @@ export const getData = async (key) => {
     const data = await AsyncStorage.getItem(key);
     return data ? JSON.parse(data) : [];
   } catch (error) {
-    console.error(`데이터 조회 실패 (${key}):`, error);
+    logError(`데이터 조회 실패 (${key})`, error, { key });
     return [];
   }
 };
@@ -40,7 +41,7 @@ export const setData = async (key, data) => {
     await AsyncStorage.setItem(key, JSON.stringify(data));
     return true;
   } catch (error) {
-    console.error(`데이터 저장 실패 (${key}):`, error);
+    logError(`데이터 저장 실패 (${key})`, error, { key });
     return false;
   }
 };
@@ -52,7 +53,7 @@ export const addData = async (key, item) => {
     await setData(key, newData);
     return newData[newData.length - 1];
   } catch (error) {
-    console.error(`데이터 추가 실패 (${key}):`, error);
+    logError(`데이터 추가 실패 (${key})`, error, { key });
     throw error;
   }
 };
@@ -66,7 +67,7 @@ export const updateData = async (key, id, updates) => {
     await setData(key, updatedData);
     return updatedData.find(item => item.id === id);
   } catch (error) {
-    console.error(`데이터 수정 실패 (${key}):`, error);
+    logError(`데이터 수정 실패 (${key})`, error, { key, id });
     throw error;
   }
 };
@@ -78,7 +79,7 @@ export const deleteData = async (key, id) => {
     await setData(key, filteredData);
     return true;
   } catch (error) {
-    console.error(`데이터 삭제 실패 (${key}):`, error);
+    logError(`데이터 삭제 실패 (${key})`, error, { key, id });
     throw error;
   }
 };
@@ -99,7 +100,7 @@ export const clearDeviceBasedData = async () => {
     }
     
   } catch (error) {
-    console.error('기기별 데이터 삭제 실패:', error);
+    logError('기기별 데이터 삭제 실패', error);
   }
 };
 
@@ -113,7 +114,7 @@ export const getDeviceId = async () => {
     }
     return deviceId;
   } catch (error) {
-    console.error('Device ID 가져오기 실패:', error);
+    logError('Device ID 가져오기 실패', error);
     return 'device_' + Math.random().toString(36).substr(2, 9);
   }
 };

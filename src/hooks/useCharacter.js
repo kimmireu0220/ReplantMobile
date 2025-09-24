@@ -17,6 +17,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getData, getStorageKeys, autoLevelupCharacter, setData } from '../services';
 import { useUser } from '../contexts/UserContext';
+import { logError } from '../utils/logger';
 
 export const useCharacter = () => {
   const { currentNickname } = useUser();
@@ -92,7 +93,7 @@ export const useCharacter = () => {
       // 모든 설정이 완료된 후 로딩 종료
       setLoading(false);
     } catch (loadError) {
-      console.error('캐릭터 로드 실패:', loadError);
+      logError('캐릭터 로드 실패', loadError, { currentNickname });
       setError(loadError.message);
       setLoading(false);
     }
@@ -131,7 +132,7 @@ export const useCharacter = () => {
 
       return result;
     } catch (expError) {
-      console.error('경험치 추가 실패:', expError);
+      logError('경험치 추가 실패', expError, { categoryId, experience });
       return { success: false, error: expError.message };
     }
   }, [characters, selectedCharacter, currentNickname]);
@@ -154,7 +155,7 @@ export const useCharacter = () => {
       
       return { success: true };
     } catch (error) {
-      console.error('대표 캐릭터 설정 실패:', error);
+      logError('대표 캐릭터 설정 실패', error, { categoryId });
       return { success: false, error: error.message };
     }
   }, [characters, currentNickname]);

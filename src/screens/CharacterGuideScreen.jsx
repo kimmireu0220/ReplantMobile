@@ -153,12 +153,12 @@ const CharacterGuideScreen = () => {
                     <View 
                       style={[
                         styles.progressFill, 
-                        { backgroundColor: colors.primary[500], width: `${((character.experience || 0) % 1000) / 10}%` }
+                        { backgroundColor: colors.primary[500], width: `${((character.experience || 0) % 100)}%` }
                       ]} 
                     />
                   </View>
                   <Text style={[styles.progressText, { color: colors.text.tertiary }]}>
-                    다음 레벨까지 {1000 - ((character.experience || 0) % 1000)} EXP
+                    다음 레벨까지 {100 - ((character.experience || 0) % 100)} EXP
                   </Text>
                 </View>
 

@@ -1,4 +1,5 @@
 // 템플릿 서비스 - JSON 파일에서 직접 로드
+import { logError } from '../utils/logger';
 
 // 미션 템플릿 로드
 export const loadMissionTemplates = async () => {
@@ -7,7 +8,7 @@ export const loadMissionTemplates = async () => {
     const missionTemplatesData = require('../data/missionTemplates.json');
     return missionTemplatesData;
   } catch (error) {
-    console.error('미션 템플릿 로드 실패:', error);
+    logError('미션 템플릿 로드 실패', error);
     return [];
   }
 };
@@ -19,7 +20,7 @@ export const loadCharacterTemplates = async () => {
     const characterTemplatesData = require('../data/characterTemplates.json');
     return characterTemplatesData;
   } catch (error) {
-    console.error('캐릭터 템플릿 로드 실패:', error);
+    logError('캐릭터 템플릿 로드 실패', error);
     return [];
   }
 };
@@ -36,7 +37,7 @@ export const loadTemplates = async () => {
       characterTemplates
     };
   } catch (error) {
-    console.error('템플릿 로드 실패:', error);
+    logError('템플릿 로드 실패', error);
     return {
       success: false,
       error: error.message

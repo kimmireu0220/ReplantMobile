@@ -19,7 +19,7 @@
     "waving_image": "level2/waving.png",
     "happy_image": "level2/happy.png",
     "description": "땅을 뚫고 올라온 새싹이에요",
-    "experience_required": 1000
+    "experience_required": 100
   },
   {
     "id": 5,
@@ -30,7 +30,7 @@
     "waving_image": "level3/waving.png",
     "happy_image": "level3/happy.png",
     "description": "잎이 자라기 시작한 어린 식물이에요",
-    "experience_required": 2500
+    "experience_required": 200
   },
   {
     "id": 3,
@@ -41,7 +41,7 @@
     "waving_image": "level4/waving.png",
     "happy_image": "level4/happy.png",
     "description": "튼튼한 줄기를 가진 성장한 나무예요",
-    "experience_required": 5000
+    "experience_required": 300
   },
   {
     "id": 6,
@@ -52,7 +52,7 @@
     "waving_image": "level5/waving.png",
     "happy_image": "level5/happy.png",
     "description": "맛있는 열매를 맺은 나무예요",
-    "experience_required": 10000
+    "experience_required": 400
   },
   {
     "id": 4,
@@ -63,6 +63,6 @@
     "waving_image": "level6/waving.png",
     "happy_image": "level6/happy.png",
     "description": "오랜 세월을 거쳐 성숙한 위대한 나무예요",
-    "experience_required": 20000
+    "experience_required": 500
   }
 ]

@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getData, setData, getStorageKeys } from './storage';
+import { logError } from '../utils/logger';
 
 // 닉네임 중복 확인
 export const checkNicknameDuplicate = async (nickname) => {
@@ -8,7 +9,7 @@ export const checkNicknameDuplicate = async (nickname) => {
     const existingNickname = await AsyncStorage.getItem(storageKeys.USER_NICKNAME);
     return existingNickname === nickname;
   } catch (error) {
-    console.error('닉네임 중복 확인 실패:', error);
+    logError('닉네임 중복 확인 실패', error, { nickname });
     return false;
   }
 };
@@ -36,7 +37,7 @@ export const createUserWithNickname = async (nickname, deviceId) => {
       nickname
     };
   } catch (error) {
-    console.error('사용자 생성 실패:', error);
+    logError('사용자 생성 실패', error, { nickname });
     return {
       success: false,
       error: error.message
@@ -54,7 +55,7 @@ export const getUserByNickname = async (nickname) => {
     }
     return null;
   } catch (error) {
-    console.error('사용자 조회 실패:', error);
+    logError('사용자 조회 실패', error, { nickname });
     return null;
   }
 };
@@ -85,7 +86,7 @@ export const migrateUserData = async (nickname) => {
       migratedMissions: migratedMissions.length
     };
   } catch (error) {
-    console.error('데이터 마이그레이션 실패:', error);
+    logError('데이터 마이그레이션 실패', error, { nickname });
     return {
       success: false,
       error: error.message
@@ -130,7 +131,7 @@ export const initializeUserData = async (userId, nickname) => {
           title: characterTemplates[0].title,
           level: 1,
           experience: 0,
-          max_experience: 1000,
+          max_experience: 100,
           total_experience: 0,
           unlocked: true,
           unlocked_date: new Date().toISOString(),
@@ -143,7 +144,7 @@ export const initializeUserData = async (userId, nickname) => {
           title: characterTemplates[0].title,
           level: 1,
           experience: 0,
-          max_experience: 1000,
+          max_experience: 100,
           total_experience: 0,
           unlocked: true,
           unlocked_date: new Date().toISOString(),
@@ -156,7 +157,7 @@ export const initializeUserData = async (userId, nickname) => {
           title: characterTemplates[0].title,
           level: 1,
           experience: 0,
-          max_experience: 1000,
+          max_experience: 100,
           total_experience: 0,
           unlocked: true,
           unlocked_date: new Date().toISOString(),
@@ -176,7 +177,7 @@ export const initializeUserData = async (userId, nickname) => {
       message: '사용자 데이터가 초기화되었습니다.'
     };
   } catch (error) {
-    console.error('사용자 데이터 초기화 실패:', error);
+    logError('사용자 데이터 초기화 실패', error, { userId, nickname });
     return {
       success: false,
       error: error.message

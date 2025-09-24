@@ -1,4 +1,5 @@
 import { loadTemplates } from './templateService';
+import { logError } from '../utils/logger';
 
 // 앱 초기화
 export const initializeApp = async () => {
@@ -19,7 +20,7 @@ export const initializeApp = async () => {
       }
     };
   } catch (error) {
-    console.error('앱 초기화 실패:', error);
+    logError('앱 초기화 실패', error);
     return {
       success: false,
       error: error.message
@@ -47,7 +48,7 @@ export const resetAppData = async () => {
       message: '앱 데이터가 초기화되었습니다.'
     };
   } catch (error) {
-    console.error('앱 데이터 초기화 실패:', error);
+    logError('앱 데이터 초기화 실패', error);
     return {
       success: false,
       error: error.message

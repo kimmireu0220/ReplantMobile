@@ -40,7 +40,7 @@ export const UserProvider = ({ children }) => {
         setCurrentNickname(nickname);
       }
     } catch (error) {
-      console.error('사용자 정보 로드 실패:', error);
+      logError('사용자 정보 로드 실패', error);
     } finally {
       setIsLoading(false);
     }
@@ -97,7 +97,7 @@ export const UserProvider = ({ children }) => {
       setUser(null);
       setCurrentNickname(null);
     } catch (error) {
-      console.error('로그아웃 실패:', error);
+      logError('로그아웃 실패', error);
     }
   };
 
@@ -116,7 +116,7 @@ export const UserProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      console.error('사용자 정보 새로고침 실패:', error);
+      logError('사용자 정보 새로고침 실패', error);
     }
   };
 

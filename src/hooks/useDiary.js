@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getData, addData, updateData, deleteData, getStorageKeys } from '../services';
 import { useUser } from '../contexts/UserContext';
+import { logError } from '../utils/logger';
 
 export const useDiary = () => {
   const { currentNickname } = useUser();
@@ -24,7 +25,7 @@ export const useDiary = () => {
 
       setDiaries(sortedDiaries);
     } catch (loadError) {
-      console.error('다이어리 로드 실패:', loadError);
+      logError('다이어리 로드 실패', loadError, { currentNickname });
       setError(loadError.message);
     } finally {
       setLoading(false);
@@ -53,7 +54,7 @@ export const useDiary = () => {
 
       return newDiary;
     } catch (saveError) {
-      console.error('다이어리 저장 실패:', saveError);
+      logError('다이어리 저장 실패', saveError, { diaryData, currentNickname });
       throw saveError;
     } finally {
       setLoading(false);
@@ -82,7 +83,7 @@ export const useDiary = () => {
 
       return updatedDiary;
     } catch (updateError) {
-      console.error('다이어리 수정 실패:', updateError);
+      logError('다이어리 수정 실패', updateError, { diaryId, diaryData, currentNickname });
       throw updateError;
     } finally {
       setLoading(false);
@@ -102,7 +103,7 @@ export const useDiary = () => {
 
       return { success: true };
     } catch (deleteError) {
-      console.error('다이어리 삭제 실패:', deleteError);
+      logError('다이어리 삭제 실패', deleteError, { diaryId, currentNickname });
       throw deleteError;
     } finally {
       setLoading(false);
