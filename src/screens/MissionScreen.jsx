@@ -4,7 +4,7 @@ import { useMission } from '../hooks/useMission';
 import { useCharacter } from '../hooks/useCharacter';
 import { MissionCard } from '../components/specialized';
 import { Card, Loading, ErrorBoundary } from '../components/ui';
-import { colors, spacing, typography } from '../utils/designTokens';
+import { colors, spacing, typography, borderRadius } from '../utils/designTokens';
 
 const MISSION_CATEGORIES = [
   { id: 'all', name: '전체', emoji: '🎯' },
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: spacing[5],
-    paddingTop: 60,
+    paddingTop: spacing[15],
     paddingBottom: spacing[5],
     backgroundColor: colors.background.primary,
     borderBottomWidth: 1,
@@ -214,13 +214,13 @@ const styles = StyleSheet.create({
   progressBar: {
     height: 8,
     backgroundColor: colors.gray[200],
-    borderRadius: 4,
+    borderRadius: borderRadius.sm,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
     backgroundColor: colors.primary[500],
-    borderRadius: 4,
+    borderRadius: borderRadius.sm,
   },
   categorySection: {
     marginBottom: spacing[6],
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: spacing[3],
     marginHorizontal: spacing[1],
-    borderRadius: 12,
+    borderRadius: borderRadius.md,
     backgroundColor: colors.background.primary,
     borderWidth: 1,
     borderColor: colors.border.light,

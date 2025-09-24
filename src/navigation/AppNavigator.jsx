@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useUser } from '../contexts/UserContext';
 import { SCREEN_NAMES } from '../utils/constants';
+import { colors, spacing, typography } from '../utils/designTokens';
 
 // 화면 컴포넌트들
 import StartScreen from '../screens/StartScreen';
@@ -121,7 +122,7 @@ const AppNavigator = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background.primary,
   },
   loadingContainer: {
     flex: 1,
@@ -133,27 +134,27 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: colors.background.primary,
     borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-    paddingBottom: 20,
-    paddingTop: 10,
+    borderTopColor: colors.border.light,
+    paddingBottom: spacing[5],
+    paddingTop: spacing[2],
   },
   tab: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: spacing[2],
   },
   activeTab: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: colors.background.secondary,
   },
   tabIcon: {
-    fontSize: 20,
-    marginBottom: 4,
+    fontSize: typography.fontSize.xl,
+    marginBottom: spacing[1],
   },
   tabLabel: {
-    fontSize: 12,
-    color: '#666',
+    fontSize: typography.fontSize.xs,
+    color: colors.text.secondary,
   },
 });
 

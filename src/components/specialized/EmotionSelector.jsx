@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   
   emoji: {
-    fontSize: 24,
+    fontSize: typography.fontSize['2xl'],
     marginBottom: spacing[1],
   },
   

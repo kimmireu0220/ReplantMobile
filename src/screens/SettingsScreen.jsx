@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useUser } from '../contexts/UserContext';
 import { Card } from '../components/ui';
-import { colors, spacing, typography } from '../utils/designTokens';
+import { colors, spacing, typography, borderRadius } from '../utils/designTokens';
 import { resetAppData } from '../services/appService';
 
 const SettingsScreen = () => {
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   option: {
     backgroundColor: colors.background.primary,
     padding: spacing[4],
-    borderRadius: 8,
+    borderRadius: borderRadius.base,
     borderWidth: 1,
     borderColor: colors.border.light,
   },
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   logoutOption: {
     backgroundColor: colors.error[50],
     padding: spacing[4],
-    borderRadius: 8,
+    borderRadius: borderRadius.base,
     borderWidth: 1,
     borderColor: colors.border.light,
   },
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   resetOption: {
     backgroundColor: colors.warning[50],
     padding: spacing[4],
-    borderRadius: 8,
+    borderRadius: borderRadius.base,
     borderWidth: 1,
     borderColor: colors.border.light,
     marginTop: spacing[3],

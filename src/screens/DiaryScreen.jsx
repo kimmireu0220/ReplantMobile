@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, TextInput 
 import { useDiary } from '../hooks/useDiary';
 import { DiaryCard, EmotionSelector } from '../components/specialized';
 import { Button, Card, Loading, ErrorBoundary } from '../components/ui';
-import { colors, spacing, typography } from '../utils/designTokens';
+import { colors, spacing, typography, borderRadius } from '../utils/designTokens';
 
 const DiaryScreen = () => {
   const { diaries, loading, error, saveDiary, updateDiary, deleteDiary } = useDiary();
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: spacing[5],
-    paddingTop: 60,
+    paddingTop: spacing[15],
     paddingBottom: spacing[5],
     backgroundColor: colors.background.primary,
     borderBottomWidth: 1,
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     right: spacing[5],
     width: 56,
     height: 56,
-    borderRadius: 28,
+    borderRadius: borderRadius.full,
     backgroundColor: colors.primary[500],
     justifyContent: 'center',
     alignItems: 'center',
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
   },
   fabIcon: {
-    fontSize: 24,
+    fontSize: typography.fontSize['2xl'],
     color: colors.text.inverse,
     fontWeight: typography.fontWeight.bold,
   },
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background.primary,
     borderWidth: 1,
     borderColor: colors.border.medium,
-    borderRadius: 8,
+    borderRadius: borderRadius.base,
     padding: spacing[3],
     minHeight: 120,
     fontSize: typography.fontSize.base,
