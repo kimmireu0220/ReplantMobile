@@ -16,14 +16,11 @@ export const SCREEN_NAMES = {
 };
 
 
-// 미션 카테고리
+// 미션 카테고리 (3개로 축소)
 export const MISSION_CATEGORIES = {
-  EXERCISE: 'exercise',
-  CLEANING: 'cleaning',
-  READING: 'reading',
-  SELFCARE: 'selfcare',
-  SOCIAL: 'social',
-  CREATIVITY: 'creativity',
+  SELF_MANAGEMENT: 'self_management',
+  COMMUNICATION: 'communication', 
+  CAREER: 'career',
 };
 
 // 감정 태그

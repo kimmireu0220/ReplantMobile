@@ -37,30 +37,22 @@ const CharacterGuideScreen = () => {
     return '씨앗';
   };
 
-  // 카테고리 이름 변환
+  // 카테고리 이름 변환 (3개 카테고리로 축소)
   const getCategoryName = (categoryId) => {
     const categoryNames = {
-      'general': '일반',
-      'cleaning': '청소',
-      'exercise': '운동',
-      'reading': '독서',
-      'creativity': '창의',
-      'social': '사회',
-      'selfcare': '셀프케어'
+      'self_management': '자기관리',
+      'communication': '소통관리',
+      'career': '커리어관리'
     };
     return categoryNames[categoryId] || '알 수 없음';
   };
 
-  // 카테고리 아이콘
+  // 카테고리 아이콘 (3개 카테고리로 축소)
   const getCategoryIcon = (categoryId) => {
     const categoryIcons = {
-      'general': '🌱',
-      'cleaning': '🧹',
-      'exercise': '🏃',
-      'reading': '📚',
-      'creativity': '🎨',
-      'social': '👥',
-      'selfcare': '💆'
+      'self_management': '🧘',
+      'communication': '🏃',
+      'career': '📚'
     };
     return categoryIcons[categoryId] || '❓';
   };
@@ -152,7 +144,7 @@ const CharacterGuideScreen = () => {
               </Text>
             </TouchableOpacity>
             
-            {['general', 'cleaning', 'exercise', 'reading', 'creativity', 'social', 'selfcare'].map(category => (
+            {['self_management', 'communication', 'career'].map(category => (
               <TouchableOpacity
                 key={category}
                 style={[

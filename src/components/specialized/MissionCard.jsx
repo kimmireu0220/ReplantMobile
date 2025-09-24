@@ -13,24 +13,18 @@ const MissionCard = ({
 
   const getCategoryEmoji = (category) => {
     const emojiMap = {
-      exercise: '🏃‍♂️',
-      cleaning: '🧹',
-      reading: '📚',
-      selfcare: '🧘‍♀️',
-      social: '👥',
-      creativity: '🎨',
+      self_management: '🧘',
+      communication: '🏃‍♂️',
+      career: '📚',
     };
     return emojiMap[category] || '🎯';
   };
 
   const getCategoryName = (category) => {
     const nameMap = {
-      exercise: '운동',
-      cleaning: '청소',
-      reading: '독서',
-      selfcare: '자기돌봄',
-      social: '사회활동',
-      creativity: '창의활동',
+      self_management: '자기관리',
+      communication: '소통관리',
+      career: '커리어관리',
     };
     return nameMap[category] || category;
   };
@@ -48,10 +42,10 @@ const MissionCard = ({
       <View style={styles.header}>
         <View style={styles.categoryInfo}>
           <Text style={styles.categoryEmoji}>
-            {getCategoryEmoji(mission.category)}
+            {getCategoryEmoji(mission.category_id || mission.category)}
           </Text>
           <Text style={styles.categoryName}>
-            {getCategoryName(mission.category)}
+            {getCategoryName(mission.category_id || mission.category)}
           </Text>
         </View>
         <View style={styles.statusContainer}>

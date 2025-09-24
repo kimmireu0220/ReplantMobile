@@ -8,12 +8,9 @@ import { colors, spacing, typography } from '../utils/designTokens';
 
 const MISSION_CATEGORIES = [
   { id: 'all', name: '전체', emoji: '🎯' },
-  { id: 'exercise', name: '운동', emoji: '🏃‍♂️' },
-  { id: 'cleaning', name: '청소', emoji: '🧹' },
-  { id: 'reading', name: '독서', emoji: '📚' },
-  { id: 'selfcare', name: '자기돌봄', emoji: '🧘‍♀️' },
-  { id: 'social', name: '사회활동', emoji: '👥' },
-  { id: 'creativity', name: '창의활동', emoji: '🎨' },
+  { id: 'self_management', name: '자기관리', emoji: '🧘' },
+  { id: 'communication', name: '소통관리', emoji: '🏃‍♂️' },
+  { id: 'career', name: '커리어관리', emoji: '📚' },
 ];
 
 const MissionScreen = () => {
