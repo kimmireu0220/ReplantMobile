@@ -103,14 +103,8 @@ export const initializeUserData = async (userId, nickname) => {
     // 미션 템플릿에서 초기 미션 생성
     const storageKeys = getStorageKeys(nickname);
     
-    // 템플릿이 없으면 먼저 로드
-    let missionTemplates = await getData(storageKeys.MISSION_TEMPLATES);
-    if (missionTemplates.length === 0) {
-      // JSON 파일에서 템플릿 로드
-      const missionTemplatesData = require('../data/missionTemplates.json');
-      await setData(storageKeys.MISSION_TEMPLATES, missionTemplatesData);
-      missionTemplates = missionTemplatesData;
-    }
+    // 항상 JSON 파일에서 최신 템플릿 로드
+    const missionTemplates = require('../data/missionTemplates.json');
     // 템플릿에서 미션 생성 (전체 템플릿 데이터 사용)
     const missions = missionTemplates.map(template => ({
       id: `mission_${Date.now()}_${template.id}`,
