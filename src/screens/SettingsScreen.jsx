@@ -55,8 +55,7 @@ const SettingsScreen = () => {
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background.secondary }]}>
-      <View style={styles.header}>
-      </View>
+      <View style={styles.header} />
       
       <View style={styles.content}>
         {/* 사용자 정보 */}

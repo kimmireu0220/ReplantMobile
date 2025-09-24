@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { useCharacter } from '../hooks/useCharacter';
 import { colors, spacing, typography, borderRadius, shadows } from '../utils/designTokens';
@@ -73,8 +73,7 @@ const CharacterGuideScreen = () => {
   if (loading) {
     return (
       <View style={[styles.container, { backgroundColor: colors.background.secondary }]}>
-        <View style={[styles.header, { backgroundColor: colors.background.primary }]}>
-        </View>
+        <View style={[styles.header, { backgroundColor: colors.background.primary }]} />
         <View style={styles.loadingContainer}>
           <Text style={[styles.loadingText, { color: colors.text.secondary }]}>캐릭터 정보를 불러오는 중...</Text>
         </View>
@@ -85,8 +84,7 @@ const CharacterGuideScreen = () => {
   if (error) {
     return (
       <View style={[styles.container, { backgroundColor: colors.background.secondary }]}>
-        <View style={[styles.header, { backgroundColor: colors.background.primary }]}>
-        </View>
+        <View style={[styles.header, { backgroundColor: colors.background.primary }]} />
         <View style={styles.errorContainer}>
           <Text style={[styles.errorText, { color: colors.text.secondary }]}>캐릭터 정보를 불러올 수 없습니다.</Text>
         </View>
@@ -96,8 +94,7 @@ const CharacterGuideScreen = () => {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background.secondary }]}>
-      <View style={[styles.header, { backgroundColor: colors.background.primary, borderBottomColor: colors.border.light }]}>
-      </View>
+      <View style={[styles.header, { backgroundColor: colors.background.primary, borderBottomColor: colors.border.light }]} />
       
       <ScrollView style={styles.content}>
         {/* 전체 통계 */}
@@ -209,19 +206,19 @@ const CharacterGuideScreen = () => {
                 
                 <View style={styles.characterStats}>
                   <View style={styles.statRow}>
-                    <Text style={[styles.statLabel, { color: colors.text.secondary }]}>현재 경험치</Text>
+                    <Text style={[styles.characterStatLabel, { color: colors.text.secondary }]}>현재 경험치</Text>
                     <Text style={[styles.statValue, { color: colors.text.primary }]}>
                       {(character.experience || 0).toLocaleString()} EXP
                     </Text>
                   </View>
                   <View style={styles.statRow}>
-                    <Text style={[styles.statLabel, { color: colors.text.secondary }]}>총 경험치</Text>
+                    <Text style={[styles.characterStatLabel, { color: colors.text.secondary }]}>총 경험치</Text>
                     <Text style={[styles.statValue, { color: colors.text.primary }]}>
                       {(character.total_experience || 0).toLocaleString()} EXP
                     </Text>
                   </View>
                   <View style={styles.statRow}>
-                    <Text style={[styles.statLabel, { color: colors.text.secondary }]}>해제일</Text>
+                    <Text style={[styles.characterStatLabel, { color: colors.text.secondary }]}>해제일</Text>
                     <Text style={[styles.statValue, { color: colors.text.primary }]}>
                       {character.unlocked_date ? new Date(character.unlocked_date).toLocaleDateString('ko-KR') : '알 수 없음'}
                     </Text>
@@ -425,7 +422,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: spacing[2],
   },
-  statLabel: {
+  characterStatLabel: {
     fontSize: typography.fontSize.sm,
   },
   statValue: {

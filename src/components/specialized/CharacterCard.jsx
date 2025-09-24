@@ -10,12 +10,6 @@ const CharacterCard = ({
 }) => {
   if (!character) return null;
 
-  const getLevelEmoji = (level) => {
-    if (level >= 10) return '🌳';
-    if (level >= 7) return '🌿';
-    if (level >= 4) return '🌱';
-    return '🌰';
-  };
 
   const getLevelName = (level) => {
     if (level >= 10) return '성숙한 나무';

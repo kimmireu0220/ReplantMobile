@@ -1,4 +1,4 @@
-import { getData, updateData, getStorageKeys } from './storage';
+import { getData, updateData, setData, getStorageKeys } from './storage';
 
 // 캐릭터 자동 레벨업
 export const autoLevelupCharacter = async (characterId, experienceGained, nickname) => {

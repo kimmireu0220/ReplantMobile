@@ -81,7 +81,7 @@ export const useMission = (addExperienceByCategory) => {
       console.error('미션 완료 실패:', completeError);
       return { success: false, error: completeError.message };
     }
-  }, [missions, addExperienceByCategory]);
+  }, [missions, addExperienceByCategory, currentNickname]);
 
   // 미션 완료 취소
   const uncompleteMission = useCallback(async (missionId) => {
@@ -115,7 +115,7 @@ export const useMission = (addExperienceByCategory) => {
       console.error('미션 완료 취소 실패:', uncompleteError);
       return { success: false, error: uncompleteError.message };
     }
-  }, [missions]);
+  }, [missions, currentNickname]);
 
   return {
     missions,

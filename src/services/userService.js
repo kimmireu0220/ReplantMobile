@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getData, setData, getStorageKeys } from './storage';
-import { createCharacter } from './characterService';
 
 // 닉네임 중복 확인
 export const checkNicknameDuplicate = async (nickname) => {

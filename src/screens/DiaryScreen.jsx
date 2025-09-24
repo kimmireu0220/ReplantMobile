@@ -85,8 +85,7 @@ const DiaryScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-      </View>
+      <View style={styles.header} />
       
       <ScrollView style={styles.content}>
         {!showForm && (

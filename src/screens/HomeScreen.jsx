@@ -27,8 +27,7 @@ const HomeScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-      </View>
+      <View style={styles.header} />
       
       <View style={styles.content}>
         <Text style={styles.welcomeText}>

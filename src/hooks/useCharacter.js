@@ -71,7 +71,7 @@ export const useCharacter = () => {
       console.error('경험치 추가 실패:', expError);
       return { success: false, error: expError.message };
     }
-  }, [characters, selectedCharacter]);
+  }, [characters, selectedCharacter, currentNickname]);
 
   // 캐릭터 선택
   const selectCharacter = useCallback((character) => {
