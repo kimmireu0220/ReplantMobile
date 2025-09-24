@@ -12,6 +12,7 @@ export const SCREEN_NAMES = {
   DIARY: 'Diary',
   MISSION: 'Mission',
   CHARACTER_GUIDE: 'CharacterGuide',
+  CHARACTER_DETAIL: 'CharacterDetail',
   SETTINGS: 'Settings',
 };
 

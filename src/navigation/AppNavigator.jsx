@@ -11,12 +11,14 @@ import HomeScreen from '../screens/HomeScreen';
 import DiaryScreen from '../screens/DiaryScreen';
 import MissionScreen from '../screens/MissionScreen';
 import CharacterGuideScreen from '../screens/CharacterGuideScreen';
+import CharacterDetailScreen from '../screens/CharacterDetailScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 // 간단한 상태 기반 네비게이션 (React Navigation 없이)
 const AppNavigator = () => {
   const { isLoggedIn, isLoading } = useUser();
   const [currentScreen, setCurrentScreen] = useState(SCREEN_NAMES.START);
+  const [navigationParams, setNavigationParams] = useState({});
 
   if (isLoading) {
     return (
@@ -48,21 +50,38 @@ const AppNavigator = () => {
     );
   }
 
+  // 네비게이션 함수
+  const navigate = (screenName, params = {}) => {
+    setCurrentScreen(screenName);
+    setNavigationParams(params);
+  };
+
+  const goBack = () => {
+    // 간단한 뒤로가기 로직 (홈으로)
+    setCurrentScreen(SCREEN_NAMES.HOME);
+    setNavigationParams({});
+  };
+
   // 로그인한 경우 - 간단한 탭 네비게이션
   const renderScreen = () => {
+    const navigation = { navigate, goBack };
+    const route = { params: navigationParams };
+
     switch (currentScreen) {
       case SCREEN_NAMES.HOME:
-        return <HomeScreen />;
+        return <HomeScreen navigation={navigation} />;
       case SCREEN_NAMES.DIARY:
-        return <DiaryScreen />;
+        return <DiaryScreen navigation={navigation} />;
       case SCREEN_NAMES.MISSION:
-        return <MissionScreen />;
+        return <MissionScreen navigation={navigation} />;
       case SCREEN_NAMES.CHARACTER_GUIDE:
-        return <CharacterGuideScreen />;
+        return <CharacterGuideScreen navigation={navigation} />;
+      case SCREEN_NAMES.CHARACTER_DETAIL:
+        return <CharacterDetailScreen navigation={navigation} route={route} />;
       case SCREEN_NAMES.SETTINGS:
-        return <SettingsScreen />;
+        return <SettingsScreen navigation={navigation} />;
       default:
-        return <HomeScreen />;
+        return <HomeScreen navigation={navigation} />;
     }
   };
 

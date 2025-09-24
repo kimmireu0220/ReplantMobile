@@ -2,8 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Alert } from 'react-native';
 import { useCharacter } from '../hooks/useCharacter';
 import { colors, spacing, typography, borderRadius, shadows } from '../utils/designTokens';
+import { SCREEN_NAMES } from '../utils/constants';
 
-const CharacterGuideScreen = () => {
+const CharacterGuideScreen = ({ navigation }) => {
   const { characters, representativeCharacter, loading, error, setRepresentative } = useCharacter();
 
   // 레벨별 캐릭터 이미지
@@ -46,6 +47,11 @@ const CharacterGuideScreen = () => {
       'career': '📚'
     };
     return categoryIcons[categoryId] || '❓';
+  };
+
+  // 캐릭터 상세 페이지로 이동
+  const handleCharacterPress = (character) => {
+    navigation.navigate(SCREEN_NAMES.CHARACTER_DETAIL, { character });
   };
 
   // 대표 캐릭터 설정 핸들러
@@ -104,8 +110,20 @@ const CharacterGuideScreen = () => {
               </Text>
             </View>
           ) : (
-            characters.map((character) => (
-              <View key={character.id} style={[styles.characterCard, { backgroundColor: colors.background.primary, borderColor: colors.border.light }]}>
+            characters
+              .sort((a, b) => {
+                // 대표 캐릭터를 맨 위로
+                if (representativeCharacter && a.id === representativeCharacter.id) return -1;
+                if (representativeCharacter && b.id === representativeCharacter.id) return 1;
+                return 0;
+              })
+              .map((character) => (
+              <TouchableOpacity 
+                key={character.id} 
+                style={[styles.characterCard, { backgroundColor: colors.background.primary, borderColor: colors.border.light }]}
+                onPress={() => handleCharacterPress(character)}
+                activeOpacity={0.7}
+              >
                 <View style={styles.characterHeader}>
                   <View style={styles.characterImageContainer}>
                     <Image 
@@ -181,7 +199,7 @@ const CharacterGuideScreen = () => {
                     </TouchableOpacity>
                   )}
                 </View>
-              </View>
+              </TouchableOpacity>
             ))
           )}
         </View>
@@ -196,8 +214,8 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: spacing[5],
-    paddingTop: spacing[15],
-    paddingBottom: spacing[5],
+    paddingTop: spacing[20],
+    paddingBottom: spacing[6],
     borderBottomWidth: 1,
   },
   title: {
@@ -207,6 +225,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: spacing[5],
+    paddingTop: spacing[6],
   },
   loadingContainer: {
     flex: 1,

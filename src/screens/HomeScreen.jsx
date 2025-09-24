@@ -7,8 +7,9 @@ import { CharacterCard, MissionCard } from '../components/specialized';
 import { Card, Loading, ErrorBoundary } from '../components/ui';
 import { colors, spacing, typography } from '../utils/designTokens';
 import { executeWithErrorHandling } from '../utils/errorHandler';
+import { SCREEN_NAMES } from '../utils/constants';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const { user } = useUser();
   const { representativeCharacter, loading: characterLoading, error: characterError, addExperienceByCategory } = useCharacter();
   const { missions, loading: missionLoading, error: missionError, completeMissionWithPhoto, uncompleteMission } = useMission(addExperienceByCategory);
@@ -59,6 +60,13 @@ const HomeScreen = () => {
     
     if (result.success) {
       // 성공 시 추가 처리
+    }
+  };
+
+  // 캐릭터 상세 페이지로 이동
+  const handleCharacterPress = () => {
+    if (representativeCharacter) {
+      navigation.navigate(SCREEN_NAMES.CHARACTER_DETAIL, { character: representativeCharacter });
     }
   };
 
@@ -124,6 +132,7 @@ const HomeScreen = () => {
           ) : representativeCharacter ? (
             <CharacterCard 
               character={representativeCharacter}
+              onPress={handleCharacterPress}
               style={styles.characterCard}
             />
           ) : (
