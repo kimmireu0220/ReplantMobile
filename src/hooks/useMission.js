@@ -1,9 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import { TABLES } from '../services/supabase';
-import { useSupabase } from '../contexts/SupabaseContext';
+import { getData, updateData, STORAGE_KEYS } from '../services';
 
 export const useMission = (addExperienceByCategory) => {
-  const { supabase } = useSupabase();
   const [missions, setMissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,21 +12,19 @@ export const useMission = (addExperienceByCategory) => {
       setLoading(true);
       setError(null);
 
-      const { data, error: queryError } = await supabase
-        .from(TABLES.MISSIONS)
-        .select('*')
-        .order('created_at', { ascending: false });
+      const missionsData = await getData(STORAGE_KEYS.MISSIONS);
+      const sortedMissions = missionsData.sort((a, b) => 
+        new Date(b.created_at) - new Date(a.created_at)
+      );
 
-      if (queryError) throw queryError;
-
-      setMissions(data || []);
+      setMissions(sortedMissions);
     } catch (loadError) {
       console.error('미션 로드 실패:', loadError);
       setError(loadError.message);
     } finally {
       setLoading(false);
     }
-  }, [supabase]);
+  }, []);
 
   // 초기 로드
   useEffect(() => {
@@ -44,30 +40,28 @@ export const useMission = (addExperienceByCategory) => {
       }
 
       // 미션 완료 상태 업데이트
-      const { error: updateError } = await supabase
-        .from(TABLES.MISSIONS)
-        .update({ 
-          completed: true,
-          completed_at: new Date().toISOString(),
-          photo_url: photoUrl 
-        })
-        .eq('mission_id', missionId);
+      const updatedMission = {
+        ...mission,
+        completed: true,
+        completed_at: new Date().toISOString(),
+        photo_url: photoUrl
+      };
 
-      if (updateError) throw updateError;
+      await updateData(STORAGE_KEYS.MISSIONS, mission.id, updatedMission);
 
       // 로컬 상태 업데이트
       setMissions(prev => 
         prev.map(m => 
           m.mission_id === missionId 
-            ? { ...m, completed: true, completed_at: new Date().toISOString(), photo_url: photoUrl }
+            ? updatedMission
             : m
         )
       );
 
       // 경험치 추가 (캐릭터 시스템과 연동)
       let experienceResult = null;
-      if (addExperienceByCategory && mission.category_id) {
-        experienceResult = await addExperienceByCategory(mission.category_id, mission.experience || 50);
+      if (addExperienceByCategory && mission.category) {
+        experienceResult = await addExperienceByCategory(mission.category, mission.experience || 50);
       }
 
       return {
@@ -81,27 +75,30 @@ export const useMission = (addExperienceByCategory) => {
       console.error('미션 완료 실패:', completeError);
       return { success: false, error: completeError.message };
     }
-  }, [missions, supabase, addExperienceByCategory]);
+  }, [missions, addExperienceByCategory]);
 
   // 미션 완료 취소
   const uncompleteMission = useCallback(async (missionId) => {
     try {
-      const { error: updateError } = await supabase
-        .from(TABLES.MISSIONS)
-        .update({ 
-          completed: false,
-          completed_at: null,
-          photo_url: null 
-        })
-        .eq('mission_id', missionId);
+      const mission = missions.find(m => m.mission_id === missionId);
+      if (!mission) {
+        throw new Error('미션을 찾을 수 없습니다.');
+      }
 
-      if (updateError) throw updateError;
+      const updatedMission = {
+        ...mission,
+        completed: false,
+        completed_at: null,
+        photo_url: null
+      };
+
+      await updateData(STORAGE_KEYS.MISSIONS, mission.id, updatedMission);
 
       // 로컬 상태 업데이트
       setMissions(prev => 
         prev.map(m => 
           m.mission_id === missionId 
-            ? { ...m, completed: false, completed_at: null, photo_url: null }
+            ? updatedMission
             : m
         )
       );
@@ -111,7 +108,7 @@ export const useMission = (addExperienceByCategory) => {
       console.error('미션 완료 취소 실패:', uncompleteError);
       return { success: false, error: uncompleteError.message };
     }
-  }, [supabase]);
+  }, [missions]);
 
   return {
     missions,
