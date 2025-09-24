@@ -61,8 +61,11 @@ export const getUserByNickname = async (nickname) => {
 };
 
 // 사용자 데이터 초기화
-export const initializeUserData = async (userId, nickname) => {
+export const initializeUserData = async (userId) => {
   try {
+    // 유저가 처음 닉네임을 입력한 시점
+    const userCreatedAt = new Date().toISOString();
+    
     // 미션 템플릿에서 초기 미션 생성
     const storageKeys = getStorageKeys(nickname);
     
@@ -87,7 +90,7 @@ export const initializeUserData = async (userId, nickname) => {
           difficulty: 'medium',
           experience: 70,
           completed: false,
-          created_at: new Date().toISOString()
+          created_at: userCreatedAt
         }
       ];
       await setData(storageKeys.MISSIONS, defaultMissions);
@@ -103,7 +106,7 @@ export const initializeUserData = async (userId, nickname) => {
         difficulty: template.difficulty,
         experience: template.experience,
         completed: false,
-        created_at: new Date().toISOString()
+        created_at: userCreatedAt
       }));
       await setData(storageKeys.MISSIONS, missions);
     }
@@ -127,9 +130,9 @@ export const initializeUserData = async (userId, nickname) => {
         max_experience: 1000,
         total_experience: 0,
         unlocked: true,
-        unlocked_date: new Date().toISOString(),
+        unlocked_date: userCreatedAt,
         category_id: 'general',
-        created_at: new Date().toISOString()
+        created_at: userCreatedAt
       };
       await setData(storageKeys.CHARACTERS, [initialCharacter]);
     }
