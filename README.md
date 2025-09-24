@@ -30,17 +30,20 @@
 ### Frontend
 - **React Native**: 크로스 플랫폼 모바일 앱 개발
 - **React Navigation**: 네비게이션 관리
-- **Context API**: 전역 상태 관리
+- **Context API**: 전역 상태 관리 (메모이제이션 최적화)
 - **AsyncStorage**: 로컬 데이터 저장
 
-### Backend
-- **AsyncStorage**: 로컬 데이터 저장
+### 아키텍처
+- **Hook 패턴**: 커스텀 훅으로 로직 분리
+- **디자인 시스템**: designTokens 기반 일관된 UI
+- **에러 처리**: 중앙화된 에러 처리 시스템
+- **로깅 시스템**: 환경별 로그 레벨 관리
 
 ### 개발 도구
-- **TypeScript**: 타입 안전성
 - **ESLint**: 코드 품질 관리
 - **Prettier**: 코드 포맷팅
 - **Jest**: 테스트 프레임워크
+- **통합 로깅**: 개발/프로덕션 환경별 로깅
 
 ## 📱 설치 및 실행
 

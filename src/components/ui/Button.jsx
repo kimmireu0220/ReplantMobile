@@ -1,3 +1,18 @@
+/**
+ * 재사용 가능한 버튼 컴포넌트
+ * 다양한 스타일과 크기를 지원하는 버튼
+ * 
+ * @param {string} title - 버튼 텍스트
+ * @param {Function} onPress - 클릭 이벤트 핸들러
+ * @param {string} variant - 버튼 스타일 ('primary' | 'secondary' | 'outline')
+ * @param {string} size - 버튼 크기 ('sm' | 'base' | 'lg')
+ * @param {boolean} disabled - 비활성화 상태
+ * @param {boolean} loading - 로딩 상태
+ * @param {Object} style - 추가 스타일
+ * @param {Object} textStyle - 텍스트 스타일
+ * @param {Object} props - 기타 props
+ */
+
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { colors, spacing, typography, borderRadius } from '../../utils/designTokens';

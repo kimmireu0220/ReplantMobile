@@ -1,3 +1,19 @@
+/**
+ * 캐릭터 관리 Hook
+ * 캐릭터 데이터 로드, 경험치 추가, 대표 캐릭터 설정 등의 기능을 제공
+ * 
+ * @returns {Object} 캐릭터 관련 상태와 함수들
+ * @returns {Array} characters - 캐릭터 목록
+ * @returns {Object} selectedCharacter - 선택된 캐릭터
+ * @returns {Object} representativeCharacter - 대표 캐릭터
+ * @returns {boolean} loading - 로딩 상태
+ * @returns {string|null} error - 에러 메시지
+ * @returns {Function} loadCharacters - 캐릭터 데이터 로드
+ * @returns {Function} addExperienceByCategory - 카테고리별 경험치 추가
+ * @returns {Function} selectCharacter - 캐릭터 선택
+ * @returns {Function} setRepresentative - 대표 캐릭터 설정
+ */
+
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getData, getStorageKeys, autoLevelupCharacter, setData } from '../services';
 import { useUser } from '../contexts/UserContext';

@@ -1,3 +1,17 @@
+/**
+ * 미션 관리 Hook
+ * 미션 데이터 로드, 미션 완료/취소 등의 기능을 제공
+ * 
+ * @param {Function} addExperienceByCategory - 카테고리별 경험치 추가 함수
+ * @returns {Object} 미션 관련 상태와 함수들
+ * @returns {Array} missions - 미션 목록
+ * @returns {boolean} loading - 로딩 상태
+ * @returns {string|null} error - 에러 메시지
+ * @returns {Function} loadMissions - 미션 데이터 로드
+ * @returns {Function} completeMissionWithPhoto - 미션 완료 (사진 포함)
+ * @returns {Function} uncompleteMission - 미션 완료 취소
+ */
+
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getData, updateData, getStorageKeys } from '../services';
 import { useUser } from '../contexts/UserContext';
