@@ -4,6 +4,7 @@
  */
 
 import { Alert } from 'react-native';
+import { logError, logWarn, logInfo } from './logger';
 
 /**
  * 에러 타입별 메시지 매핑
@@ -86,17 +87,12 @@ const getErrorType = (error, context = '') => {
 };
 
 /**
- * 에러 로깅 함수
+ * 에러 로깅 함수 (통합 로거 사용)
  */
 export const logError = (error, context = '') => {
   const errorType = getErrorType(error, context);
-  const timestamp = new Date().toISOString();
   
-  console.error(`[${timestamp}] ${errorType}:`, {
-    message: error.message,
-    stack: error.stack,
-    context,
-  });
+  logError(`Error: ${errorType}`, error, { context, errorType });
 };
 
 /**
@@ -106,6 +102,7 @@ export const showErrorAlert = (error, context = '') => {
   const errorType = getErrorType(error, context);
   const userMessage = ERROR_MESSAGES[errorType] || ERROR_MESSAGES.UNKNOWN_ERROR;
   
+  logWarn(`User shown error alert: ${errorType}`, { context, userMessage });
   Alert.alert('오류', userMessage);
 };
 
@@ -113,6 +110,7 @@ export const showErrorAlert = (error, context = '') => {
  * 성공 메시지 표시
  */
 export const showSuccessAlert = (message, title = '성공') => {
+  logInfo(`User shown success alert: ${title}`, { message });
   Alert.alert(title, message);
 };
 

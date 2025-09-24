@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getStorageKeys, initializeUserData } from '../services';
 import { getDeviceId } from '../services/storage';
+import { logError, logInfo, logUserAction } from '../utils/logger';
+import { executeWithErrorHandling } from '../utils/errorHandler';
 
 const UserContext = createContext();
 
@@ -45,8 +47,10 @@ export const UserProvider = ({ children }) => {
   };
 
   // 사용자 로그인 (인증 없이 닉네임만으로)
-  const login = async (nickname) => {
-    try {
+  const login = useCallback(async (nickname) => {
+    logUserAction('login_attempt', { nickname });
+    
+    const result = await executeWithErrorHandling(async () => {
       // 사용자 상태 업데이트
       const userId = `user_${Date.now()}`;
       setUser({ 
@@ -57,10 +61,13 @@ export const UserProvider = ({ children }) => {
       
       // 미션 데이터 초기화
       await initializeUserData(userId, nickname);
+      
+      logUserAction('login_success', { nickname, userId });
       return true;
-    } catch (error) {
-      console.error('로그인 실패:', error);
-      // 에러가 발생해도 강제로 성공 처리
+    }, '사용자 로그인');
+    
+    // 에러가 발생해도 강제로 성공 처리
+    if (!result.success) {
       const userId = `user_${Date.now()}`;
       setUser({ 
         nickname, 
@@ -72,12 +79,12 @@ export const UserProvider = ({ children }) => {
       try {
         await initializeUserData(userId, nickname);
       } catch (initError) {
-        console.error('데이터 초기화 실패:', initError);
+        logError('데이터 초기화 실패', initError, { nickname, userId });
       }
-      
-      return true;
     }
-  };
+    
+    return true;
+  }, []);
 
   // 사용자 로그아웃
   const logout = async () => {
@@ -113,7 +120,8 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const value = {
+  // 메모이제이션된 Context 값
+  const value = useMemo(() => ({
     user,
     currentNickname,
     isLoggedIn: !!user,
@@ -121,7 +129,7 @@ export const UserProvider = ({ children }) => {
     logout,
     refreshUser,
     isLoading,
-  };
+  }), [user, currentNickname, login, logout, refreshUser, isLoading]);
 
   return (
     <UserContext.Provider value={value}>
