@@ -28,7 +28,6 @@ const HomeScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>홈</Text>
         {user && (
           <Text style={styles.userInfo}>👤 {user.nickname}</Text>
         )}

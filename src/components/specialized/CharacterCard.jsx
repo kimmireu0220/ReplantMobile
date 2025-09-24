@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { colors, spacing, typography, borderRadius, shadows } from '../../utils/designTokens';
 
 const CharacterCard = ({ 
@@ -24,6 +24,22 @@ const CharacterCard = ({
     return '씨앗';
   };
 
+  // 캐릭터 이미지 미리 import
+  const characterImages = {
+    level1: require('../../assets/images/characters/level1/default.png'),
+    level2: require('../../assets/images/characters/level2/default.png'),
+    level3: require('../../assets/images/characters/level3/default.png'),
+    level4: require('../../assets/images/characters/level4/default.png'),
+    level5: require('../../assets/images/characters/level5/default.png'),
+    level6: require('../../assets/images/characters/level6/default.png'),
+  };
+
+  // 캐릭터 이미지 경로 생성
+  const getCharacterImage = (level) => {
+    const levelKey = `level${Math.min(level, 6)}`;
+    return characterImages[levelKey] || characterImages.level1;
+  };
+
   const experienceProgress = (character.experience || 0) % 100;
   const nextLevelExp = 100 - experienceProgress;
 
@@ -38,7 +54,13 @@ const CharacterCard = ({
       activeOpacity={0.7}
     >
       <View style={styles.header}>
-        <Text style={styles.emoji}>{getLevelEmoji(character.level || 1)}</Text>
+        <View style={styles.characterImageContainer}>
+          <Image 
+            source={getCharacterImage(character.level || 1)}
+            style={styles.characterImage}
+            resizeMode="contain"
+          />
+        </View>
         <View style={styles.info}>
           <Text style={styles.name}>{character.name || '캐릭터'}</Text>
           <Text style={styles.level}>{getLevelName(character.level || 1)}</Text>
@@ -91,9 +113,18 @@ const styles = StyleSheet.create({
     marginBottom: spacing[3],
   },
   
-  emoji: {
-    fontSize: 32,
+  characterImageContainer: {
+    width: 60,
+    height: 60,
     marginRight: spacing[3],
+    borderRadius: borderRadius.md,
+    overflow: 'hidden',
+    backgroundColor: colors.background.secondary,
+  },
+  
+  characterImage: {
+    width: '100%',
+    height: '100%',
   },
   
   info: {

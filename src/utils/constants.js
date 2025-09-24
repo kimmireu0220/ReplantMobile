@@ -11,14 +11,10 @@ export const SCREEN_NAMES = {
   HOME: 'Home',
   DIARY: 'Diary',
   MISSION: 'Mission',
+  CHARACTER_GUIDE: 'CharacterGuide',
   SETTINGS: 'Settings',
 };
 
-// 테마 상수
-export const THEME = {
-  LIGHT: 'light',
-  DARK: 'dark',
-};
 
 // 미션 카테고리
 export const MISSION_CATEGORIES = {

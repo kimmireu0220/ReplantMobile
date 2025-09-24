@@ -75,7 +75,6 @@ const MissionScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>🎯 미션</Text>
       </View>
       
       <ScrollView style={styles.content}>

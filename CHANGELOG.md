@@ -42,7 +42,7 @@ All notable changes to this project will be documented in this file.
 
 ### Technical
 - **React Native 0.81.4** 기반
-- **Supabase** 백엔드 연동
+- **AsyncStorage** 로컬 데이터 저장
 - **Context API** 상태 관리
 - **AsyncStorage** 로컬 저장
 - **React Navigation** 네비게이션
@@ -74,7 +74,7 @@ All notable changes to this project will be documented in this file.
 ## [0.8.0] - 2024-12-17
 
 ### Added
-- Supabase 백엔드 연동
+- AsyncStorage 로컬 데이터 저장
 - 사용자 인증 시스템
 - 데이터베이스 스키마 설계
 

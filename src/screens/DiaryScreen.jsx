@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, TextInput } from 'react-native';
 import { useDiary } from '../hooks/useDiary';
 import { DiaryCard, EmotionSelector } from '../components/specialized';
 import { Button, Card, Loading, ErrorBoundary } from '../components/ui';
@@ -86,7 +86,9 @@ const DiaryScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>📝 다이어리</Text>
+      </View>
+      
+      <ScrollView style={styles.content}>
         {!showForm && (
           <TouchableOpacity
             style={styles.addButton}
@@ -96,9 +98,9 @@ const DiaryScreen = () => {
             <Text style={styles.addButtonText}>+ 새 일기</Text>
           </TouchableOpacity>
         )}
-      </View>
-      
-      <ScrollView style={styles.content}>
+        
+        {!showForm && <View style={styles.spacer} />}
+        
         {showForm ? (
           <Card style={styles.formCard}>
             <Text style={styles.formTitle}>
@@ -113,17 +115,19 @@ const DiaryScreen = () => {
             
             <View style={styles.contentInput}>
               <Text style={styles.contentLabel}>오늘의 이야기</Text>
-              <View style={styles.textArea}>
-                <Text
-                  style={styles.textAreaText}
-                  onPress={() => {
-                    // 텍스트 입력 모달이나 별도 화면으로 이동
-                    Alert.alert('알림', '텍스트 입력 기능은 다음 단계에서 구현됩니다.');
-                  }}
-                >
-                  {diaryContent || '오늘의 감정과 이야기를 자유롭게 적어보세요...'}
-                </Text>
-              </View>
+              <TextInput
+                style={styles.textInput}
+                value={diaryContent}
+                onChangeText={setDiaryContent}
+                placeholder="오늘의 감정과 이야기를 자유롭게 적어보세요..."
+                placeholderTextColor={colors.text.tertiary}
+                multiline={true}
+                textAlignVertical="top"
+                maxLength={1000}
+              />
+              <Text style={styles.characterCount}>
+                {diaryContent.length}/1000
+              </Text>
             </View>
             
             <View style={styles.formActions}>
@@ -202,6 +206,9 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.sm,
     fontWeight: typography.fontWeight.medium,
   },
+  spacer: {
+    height: spacing[6],
+  },
   content: {
     flex: 1,
     padding: spacing[5],
@@ -228,19 +235,22 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
     marginBottom: spacing[2],
   },
-  textArea: {
+  textInput: {
     backgroundColor: colors.background.primary,
     borderWidth: 1,
     borderColor: colors.border.medium,
     borderRadius: 8,
     padding: spacing[3],
     minHeight: 120,
-    justifyContent: 'center',
-  },
-  textAreaText: {
     fontSize: typography.fontSize.base,
-    color: colors.text.secondary,
+    color: colors.text.primary,
     lineHeight: typography.lineHeight.normal * typography.fontSize.base,
+  },
+  characterCount: {
+    fontSize: typography.fontSize.sm,
+    color: colors.text.tertiary,
+    textAlign: 'right',
+    marginTop: spacing[1],
   },
   formActions: {
     flexDirection: 'row',

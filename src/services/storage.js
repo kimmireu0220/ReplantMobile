@@ -10,6 +10,18 @@ export const STORAGE_KEYS = {
   CHARACTER_TEMPLATES: 'character_templates',
 };
 
+// 사용자별 스토리지 키 생성 함수
+export const getStorageKeys = (nickname) => {
+  return {
+    MISSIONS: `missions_${nickname}`,
+    DIARIES: `diaries_${nickname}`,
+    CHARACTERS: `characters_${nickname}`,
+    USER_NICKNAME: `userNickname_${nickname}`,
+    MISSION_TEMPLATES: 'mission_templates', // 템플릿은 공유
+    CHARACTER_TEMPLATES: 'character_templates', // 템플릿은 공유
+  };
+};
+
 // 기본 CRUD 함수들
 export const getData = async (key) => {
   try {
@@ -66,5 +78,41 @@ export const deleteData = async (key, id) => {
   } catch (error) {
     console.error(`데이터 삭제 실패 (${key}):`, error);
     throw error;
+  }
+};
+
+// 기기별 데이터 삭제 함수
+export const clearDeviceBasedData = async () => {
+  try {
+    const deviceId = await getDeviceId();
+    const keysToRemove = [
+      `missions_${deviceId}`,
+      `diaries_${deviceId}`,
+      `characters_${deviceId}`,
+      `userNickname_${deviceId}`,
+    ];
+    
+    for (const key of keysToRemove) {
+      await AsyncStorage.removeItem(key);
+    }
+    
+    console.log('기존 기기별 데이터 삭제 완료');
+  } catch (error) {
+    console.error('기기별 데이터 삭제 실패:', error);
+  }
+};
+
+// 기기 ID 생성/조회
+export const getDeviceId = async () => {
+  try {
+    let deviceId = await AsyncStorage.getItem('deviceId');
+    if (!deviceId) {
+      deviceId = 'device_' + Math.random().toString(36).substr(2, 9);
+      await AsyncStorage.setItem('deviceId', deviceId);
+    }
+    return deviceId;
+  } catch (error) {
+    console.error('Device ID 가져오기 실패:', error);
+    return 'device_' + Math.random().toString(36).substr(2, 9);
   }
 };

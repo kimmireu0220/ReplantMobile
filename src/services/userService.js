@@ -61,7 +61,7 @@ export const getUserByNickname = async (nickname) => {
 };
 
 // 사용자 데이터 초기화
-export const initializeUserData = async (userId) => {
+export const initializeUserData = async (userId, nickname) => {
   try {
     // 유저가 처음 닉네임을 입력한 시점
     const userCreatedAt = new Date().toISOString();

@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useUser } from '../contexts/UserContext';
-import { useTheme } from '../contexts/ThemeContext';
 import { useCharacter } from '../hooks/useCharacter';
 import { CharacterCard } from '../components/specialized';
 import { Card } from '../components/ui';
@@ -9,7 +8,6 @@ import { colors, spacing, typography } from '../utils/designTokens';
 
 const SettingsScreen = () => {
   const { user, logout } = useUser();
-  const { theme, toggleTheme } = useTheme();
   const { characters, selectedCharacter, selectCharacter } = useCharacter();
 
   const handleLogout = () => {
@@ -33,11 +31,7 @@ const SettingsScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>⚙️ 설정</Text>
-      </View>
-      
+    <ScrollView style={[styles.container, { backgroundColor: colors.background.secondary }]}>
       <View style={styles.content}>
         {/* 사용자 정보 */}
         <Card style={styles.userCard}>
@@ -89,15 +83,6 @@ const SettingsScreen = () => {
           </Card>
         )}
 
-        {/* 테마 설정 */}
-        <Card style={styles.themeCard}>
-          <Text style={styles.sectionTitle}>🎨 테마</Text>
-          <TouchableOpacity style={styles.option} onPress={toggleTheme}>
-            <Text style={styles.optionText}>
-              {theme === 'light' ? '🌙 다크 모드로 변경' : '☀️ 라이트 모드로 변경'}
-            </Text>
-          </TouchableOpacity>
-        </Card>
         
         {/* 계정 설정 */}
         <Card style={styles.accountCard}>
@@ -235,7 +220,7 @@ const styles = StyleSheet.create({
     padding: spacing[4],
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: colors.error[200],
+    borderColor: colors.border.light,
   },
   logoutText: {
     fontSize: typography.fontSize.base,

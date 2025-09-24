@@ -9,6 +9,7 @@ import NicknameScreen from '../screens/NicknameScreen';
 import HomeScreen from '../screens/HomeScreen';
 import DiaryScreen from '../screens/DiaryScreen';
 import MissionScreen from '../screens/MissionScreen';
+import CharacterGuideScreen from '../screens/CharacterGuideScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 // 간단한 상태 기반 네비게이션 (React Navigation 없이)
@@ -55,6 +56,8 @@ const AppNavigator = () => {
         return <DiaryScreen />;
       case SCREEN_NAMES.MISSION:
         return <MissionScreen />;
+      case SCREEN_NAMES.CHARACTER_GUIDE:
+        return <CharacterGuideScreen />;
       case SCREEN_NAMES.SETTINGS:
         return <SettingsScreen />;
       default:
@@ -93,6 +96,14 @@ const AppNavigator = () => {
         >
           <Text style={styles.tabIcon}>🎯</Text>
           <Text style={styles.tabLabel}>미션</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={[styles.tab, currentScreen === SCREEN_NAMES.CHARACTER_GUIDE && styles.activeTab]}
+          onPress={() => setCurrentScreen(SCREEN_NAMES.CHARACTER_GUIDE)}
+        >
+          <Text style={styles.tabIcon}>📚</Text>
+          <Text style={styles.tabLabel}>도감</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 

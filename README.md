@@ -34,9 +34,7 @@
 - **AsyncStorage**: 로컬 데이터 저장
 
 ### Backend
-- **Supabase**: 백엔드 서비스 (데이터베이스, 인증, 스토리지)
-- **Row Level Security (RLS)**: 데이터 보안
-- **Real-time**: 실시간 데이터 동기화
+- **AsyncStorage**: 로컬 데이터 저장
 
 ### 개발 도구
 - **TypeScript**: 타입 안전성
@@ -72,13 +70,9 @@ npx react-native run-android
 
 ## 🔧 환경 설정
 
-### Supabase 설정
-1. Supabase 프로젝트 생성
-2. 환경 변수 설정:
-   ```javascript
-   const supabaseUrl = 'YOUR_SUPABASE_URL';
-   const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
-   ```
+### 로컬 데이터 설정
+1. AsyncStorage를 사용한 로컬 데이터 저장
+2. 사용자별 데이터 격리
 
 ### iOS 권한 설정
 `ios/ReplantMobileApp/Info.plist`에 다음 권한이 설정되어 있습니다:
@@ -108,7 +102,7 @@ src/
 - **디바이스 ID**: 디바이스 기반 사용자 식별
 
 ### 데이터 동기화
-- **실시간 동기화**: Supabase를 통한 실시간 데이터 동기화
+- **로컬 데이터**: AsyncStorage를 통한 로컬 데이터 저장
 - **오프라인 지원**: AsyncStorage를 통한 오프라인 데이터 저장
 - **자동 백업**: 클라우드 자동 백업
 
