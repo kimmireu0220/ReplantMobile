@@ -8,6 +8,7 @@ export const STORAGE_KEYS = {
   USER_NICKNAME: 'userNickname',
   MISSION_TEMPLATES: 'mission_templates',
   CHARACTER_TEMPLATES: 'character_templates',
+  REPRESENTATIVE_CHARACTER: 'representative_character',
 };
 
 // 사용자별 스토리지 키 생성 함수
@@ -19,6 +20,7 @@ export const getStorageKeys = (nickname) => {
     USER_NICKNAME: `userNickname_${nickname}`,
     MISSION_TEMPLATES: 'mission_templates', // 템플릿은 공유
     CHARACTER_TEMPLATES: 'character_templates', // 템플릿은 공유
+    REPRESENTATIVE_CHARACTER: `representative_character_${nickname}`,
   };
 };
 

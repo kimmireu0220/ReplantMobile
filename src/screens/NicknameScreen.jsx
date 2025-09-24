@@ -52,8 +52,10 @@ const NicknameScreen = ({ onNavigate }) => {
           placeholder="닉네임을 입력하세요"
           value={nickname}
           onChangeText={setNickname}
+          onSubmitEditing={handleSubmit}
           maxLength={20}
           autoFocus
+          returnKeyType="done"
           style={styles.input}
         />
       </View>

@@ -9,13 +9,38 @@ import { colors, spacing, typography } from '../utils/designTokens';
 
 const HomeScreen = () => {
   const { user } = useUser();
-  const { selectedCharacter, loading: characterLoading, error: characterError } = useCharacter();
-  const { missions, loading: missionLoading, error: missionError } = useMission();
+  const { representativeCharacter, loading: characterLoading, error: characterError, addExperienceByCategory } = useCharacter();
+  const { missions, loading: missionLoading, error: missionError, completeMissionWithPhoto, uncompleteMission } = useMission(addExperienceByCategory);
 
   // 추천 미션 (미완료된 미션 중 최대 3개)
   const recommendedMissions = missions
     .filter(mission => !mission.completed)
     .slice(0, 3);
+
+  // 미션 완료 핸들러
+  const handleCompleteMission = async (missionId) => {
+    try {
+      const result = await completeMissionWithPhoto(missionId, null);
+      if (result.success) {
+        // 성공 시 추가 처리 (예: 토스트 메시지)
+        console.log('미션 완료:', result);
+      }
+    } catch (error) {
+      console.error('미션 완료 실패:', error);
+    }
+  };
+
+  // 미션 완료 취소 핸들러
+  const handleUncompleteMission = async (missionId) => {
+    try {
+      const result = await uncompleteMission(missionId);
+      if (result.success) {
+        console.log('미션 완료 취소:', result);
+      }
+    } catch (error) {
+      console.error('미션 완료 취소 실패:', error);
+    }
+  };
 
   if (characterLoading || missionLoading) {
     return <Loading text="데이터를 불러오는 중..." />;
@@ -35,11 +60,11 @@ const HomeScreen = () => {
         </Text>
         
         {/* 메인 캐릭터 표시 */}
-        {selectedCharacter && (
+        {representativeCharacter && (
           <View style={styles.characterSection}>
             <Text style={styles.sectionTitle}>🌱 나의 캐릭터</Text>
             <CharacterCard 
-              character={selectedCharacter}
+              character={representativeCharacter}
               style={styles.characterCard}
             />
           </View>
@@ -53,6 +78,8 @@ const HomeScreen = () => {
               <MissionCard
                 key={mission.mission_id}
                 mission={mission}
+                onComplete={handleCompleteMission}
+                onUncomplete={handleUncompleteMission}
                 style={styles.missionCard}
               />
             ))

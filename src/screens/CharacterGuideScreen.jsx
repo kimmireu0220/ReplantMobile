@@ -1,19 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Alert } from 'react-native';
 import { useCharacter } from '../hooks/useCharacter';
 import { colors, spacing, typography, borderRadius, shadows } from '../utils/designTokens';
 
 const CharacterGuideScreen = () => {
-  const { characters, loading, error } = useCharacter();
-  const [selectedCategory, setSelectedCategory] = useState('all');
-
-  // 카테고리별 캐릭터 필터링
-  const getFilteredCharacters = () => {
-    if (selectedCategory === 'all') {
-      return characters;
-    }
-    return characters.filter(char => char.category_id === selectedCategory);
-  };
+  const { characters, representativeCharacter, loading, error, setRepresentative } = useCharacter();
 
   // 레벨별 캐릭터 이미지
   const getCharacterImage = (level) => {
@@ -37,7 +28,7 @@ const CharacterGuideScreen = () => {
     return '씨앗';
   };
 
-  // 카테고리 이름 변환 (3개 카테고리로 축소)
+  // 카테고리 이름 변환
   const getCategoryName = (categoryId) => {
     const categoryNames = {
       'self_management': '자기관리',
@@ -47,7 +38,7 @@ const CharacterGuideScreen = () => {
     return categoryNames[categoryId] || '알 수 없음';
   };
 
-  // 카테고리 아이콘 (3개 카테고리로 축소)
+  // 카테고리 아이콘
   const getCategoryIcon = (categoryId) => {
     const categoryIcons = {
       'self_management': '🧘',
@@ -57,18 +48,21 @@ const CharacterGuideScreen = () => {
     return categoryIcons[categoryId] || '❓';
   };
 
-  // 전체 통계 계산
-  const getTotalStats = () => {
-    const totalCharacters = characters.length;
-    const totalLevel = characters.reduce((sum, char) => sum + (char.level || 1), 0);
-    const totalExperience = characters.reduce((sum, char) => sum + (char.total_experience || 0), 0);
-    const maxLevel = Math.max(...characters.map(char => char.level || 1), 0);
-    
-    return { totalCharacters, totalLevel, totalExperience, maxLevel };
+  // 대표 캐릭터 설정 핸들러
+  const handleSetRepresentative = async (character) => {
+    try {
+      const result = await setRepresentative(character.category_id);
+      if (result.success) {
+        Alert.alert('성공', `${getCategoryName(character.category_id)} 캐릭터가 대표 캐릭터로 설정되었습니다.`);
+      } else {
+        Alert.alert('오류', result.error || '대표 캐릭터 설정에 실패했습니다.');
+      }
+    } catch (error) {
+      Alert.alert('오류', '대표 캐릭터 설정 중 오류가 발생했습니다.');
+    }
   };
 
-  const stats = getTotalStats();
-  const filteredCharacters = getFilteredCharacters();
+
 
   if (loading) {
     return (
@@ -97,91 +91,20 @@ const CharacterGuideScreen = () => {
       <View style={[styles.header, { backgroundColor: colors.background.primary, borderBottomColor: colors.border.light }]} />
       
       <ScrollView style={styles.content}>
-        {/* 전체 통계 */}
-        <View style={[styles.statsCard, { backgroundColor: colors.background.primary, borderColor: colors.border.light }]}>
-          <Text style={[styles.statsTitle, { color: colors.text.primary }]}>📊 전체 통계</Text>
-          <View style={styles.statsGrid}>
-            <View style={styles.statItem}>
-              <Text style={[styles.statNumber, { color: colors.primary[500] }]}>{stats.totalCharacters}</Text>
-              <Text style={[styles.statLabel, { color: colors.text.secondary }]}>보유 캐릭터</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={[styles.statNumber, { color: colors.primary[500] }]}>{stats.maxLevel}</Text>
-              <Text style={[styles.statLabel, { color: colors.text.secondary }]}>최고 레벨</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={[styles.statNumber, { color: colors.primary[500] }]}>{stats.totalLevel}</Text>
-              <Text style={[styles.statLabel, { color: colors.text.secondary }]}>총 레벨</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={[styles.statNumber, { color: colors.primary[500] }]}>{stats.totalExperience.toLocaleString()}</Text>
-              <Text style={[styles.statLabel, { color: colors.text.secondary }]}>총 경험치</Text>
-            </View>
-          </View>
-        </View>
 
-        {/* 카테고리 필터 */}
-        <View style={[styles.filterCard, { backgroundColor: colors.background.primary, borderColor: colors.border.light }]}>
-          <Text style={[styles.filterTitle, { color: colors.text.primary }]}>🔍 카테고리</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
-            <TouchableOpacity
-              style={[
-                styles.filterButton,
-                { backgroundColor: colors.background.secondary, borderColor: colors.border.medium },
-                selectedCategory === 'all' && { backgroundColor: colors.primary[500], borderColor: colors.primary[500] }
-              ]}
-              onPress={() => setSelectedCategory('all')}
-            >
-              <Text style={[
-                styles.filterText,
-                { color: colors.text.primary },
-                selectedCategory === 'all' && { color: colors.text.inverse }
-              ]}>
-                🌟 전체
-              </Text>
-            </TouchableOpacity>
-            
-            {['self_management', 'communication', 'career'].map(category => (
-              <TouchableOpacity
-                key={category}
-                style={[
-                  styles.filterButton,
-                  { backgroundColor: colors.background.secondary, borderColor: colors.border.medium },
-                  selectedCategory === category && { backgroundColor: colors.primary[500], borderColor: colors.primary[500] }
-                ]}
-                onPress={() => setSelectedCategory(category)}
-              >
-                <Text style={[
-                  styles.filterText,
-                  { color: colors.text.primary },
-                  selectedCategory === category && { color: colors.text.inverse }
-                ]}>
-                  {getCategoryIcon(category)} {getCategoryName(category)}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
 
         {/* 캐릭터 목록 */}
         <View style={styles.charactersSection}>
-          <Text style={[styles.sectionTitle, { color: colors.text.primary }]}>
-            {selectedCategory === 'all' ? '🌟 모든 캐릭터' : `${getCategoryIcon(selectedCategory)} ${getCategoryName(selectedCategory)} 캐릭터`}
-          </Text>
-          
-          {filteredCharacters.length === 0 ? (
+          {characters.length === 0 ? (
             <View style={[styles.emptyCard, { backgroundColor: colors.background.primary, borderColor: colors.border.light }]}>
               <Text style={[styles.emptyIcon, { color: colors.text.tertiary }]}>📝</Text>
               <Text style={[styles.emptyTitle, { color: colors.text.primary }]}>캐릭터가 없어요</Text>
               <Text style={[styles.emptyText, { color: colors.text.secondary }]}>
-                {selectedCategory === 'all' 
-                  ? '아직 캐릭터가 없습니다.' 
-                  : `${getCategoryName(selectedCategory)} 카테고리의 캐릭터가 없습니다.`
-                }
+                아직 캐릭터가 없습니다.
               </Text>
             </View>
           ) : (
-            filteredCharacters.map((character) => (
+            characters.map((character) => (
               <View key={character.id} style={[styles.characterCard, { backgroundColor: colors.background.primary, borderColor: colors.border.light }]}>
                 <View style={styles.characterHeader}>
                   <View style={styles.characterImageContainer}>
@@ -238,6 +161,26 @@ const CharacterGuideScreen = () => {
                     다음 레벨까지 {1000 - ((character.experience || 0) % 1000)} EXP
                   </Text>
                 </View>
+
+                {/* 대표 캐릭터 설정 버튼 */}
+                <View style={styles.actionContainer}>
+                  {representativeCharacter && representativeCharacter.id === character.id ? (
+                    <View style={[styles.representativeBadge, { backgroundColor: colors.primary[500] }]}>
+                      <Text style={[styles.representativeText, { color: colors.text.inverse }]}>
+                        ⭐ 대표 캐릭터
+                      </Text>
+                    </View>
+                  ) : (
+                    <TouchableOpacity
+                      style={[styles.setRepresentativeButton, { backgroundColor: colors.background.secondary, borderColor: colors.border.medium }]}
+                      onPress={() => handleSetRepresentative(character)}
+                    >
+                      <Text style={[styles.setRepresentativeText, { color: colors.text.primary }]}>
+                        대표로 설정
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
             ))
           )}
@@ -280,62 +223,6 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: typography.fontSize.base,
-  },
-  statsCard: {
-    padding: spacing[5],
-    borderRadius: borderRadius.lg,
-    borderWidth: 1,
-    marginBottom: spacing[5],
-    ...shadows.base,
-  },
-  statsTitle: {
-    fontSize: typography.fontSize.lg,
-    fontWeight: typography.fontWeight.bold,
-    marginBottom: spacing[4],
-  },
-  statsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  statItem: {
-    width: '48%',
-    alignItems: 'center',
-    marginBottom: spacing[3],
-  },
-  statNumber: {
-    fontSize: typography.fontSize['2xl'],
-    fontWeight: typography.fontWeight.bold,
-    marginBottom: spacing[1],
-  },
-  statLabel: {
-    fontSize: typography.fontSize.sm,
-  },
-  filterCard: {
-    padding: spacing[5],
-    borderRadius: borderRadius.lg,
-    borderWidth: 1,
-    marginBottom: spacing[5],
-    ...shadows.base,
-  },
-  filterTitle: {
-    fontSize: typography.fontSize.lg,
-    fontWeight: typography.fontWeight.bold,
-    marginBottom: spacing[3],
-  },
-  filterScroll: {
-    flexDirection: 'row',
-  },
-  filterButton: {
-    paddingHorizontal: spacing[3],
-    paddingVertical: spacing[2],
-    borderRadius: borderRadius.md,
-    borderWidth: 1,
-    marginRight: spacing[2],
-  },
-  filterText: {
-    fontSize: typography.fontSize.sm,
-    fontWeight: typography.fontWeight.medium,
   },
   charactersSection: {
     marginBottom: spacing[5],
@@ -445,6 +332,29 @@ const styles = StyleSheet.create({
   progressText: {
     fontSize: typography.fontSize.xs,
     textAlign: 'right',
+  },
+  actionContainer: {
+    marginTop: spacing[3],
+    alignItems: 'center',
+  },
+  representativeBadge: {
+    paddingHorizontal: spacing[3],
+    paddingVertical: spacing[2],
+    borderRadius: borderRadius.base,
+  },
+  representativeText: {
+    fontSize: typography.fontSize.sm,
+    fontWeight: typography.fontWeight.medium,
+  },
+  setRepresentativeButton: {
+    paddingHorizontal: spacing[4],
+    paddingVertical: spacing[2],
+    borderRadius: borderRadius.base,
+    borderWidth: 1,
+  },
+  setRepresentativeText: {
+    fontSize: typography.fontSize.sm,
+    fontWeight: typography.fontWeight.medium,
   },
 });
 

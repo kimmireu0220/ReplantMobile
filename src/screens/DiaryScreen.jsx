@@ -154,7 +154,6 @@ const DiaryScreen = () => {
               </Card>
             ) : (
               <>
-                <Text style={styles.sectionTitle}>📚 내 일기 모음</Text>
                 {diaries.map((diary) => (
                   <DiaryCard
                     key={diary.id}

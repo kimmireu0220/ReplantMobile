@@ -124,23 +124,56 @@ export const initializeUserData = async (userId, nickname) => {
       characterTemplates = characterTemplatesData;
     }
     if (characterTemplates.length > 0) {
-      const initialCharacter = {
-        id: `character_${Date.now()}`,
-        user_id: userId,
-        name: characterTemplates[0].name,
-        title: characterTemplates[0].title,
-        level: 1,
-        experience: 0,
-        max_experience: 1000,
-        total_experience: 0,
-        unlocked: true,
-        category_id: 'general'
-      };
-      await setData(storageKeys.CHARACTERS, [initialCharacter]);
+      // 3개 카테고리별 캐릭터 생성
+      const initialCharacters = [
+        {
+          id: `character_${Date.now()}_self_management`,
+          user_id: userId,
+          name: characterTemplates[0].name,
+          title: characterTemplates[0].title,
+          level: 1,
+          experience: 0,
+          max_experience: 1000,
+          total_experience: 0,
+          unlocked: true,
+          unlocked_date: new Date().toISOString(),
+          category_id: 'self_management'
+        },
+        {
+          id: `character_${Date.now()}_communication`,
+          user_id: userId,
+          name: characterTemplates[0].name,
+          title: characterTemplates[0].title,
+          level: 1,
+          experience: 0,
+          max_experience: 1000,
+          total_experience: 0,
+          unlocked: true,
+          unlocked_date: new Date().toISOString(),
+          category_id: 'communication'
+        },
+        {
+          id: `character_${Date.now()}_career`,
+          user_id: userId,
+          name: characterTemplates[0].name,
+          title: characterTemplates[0].title,
+          level: 1,
+          experience: 0,
+          max_experience: 1000,
+          total_experience: 0,
+          unlocked: true,
+          unlocked_date: new Date().toISOString(),
+          category_id: 'career'
+        }
+      ];
+      await setData(storageKeys.CHARACTERS, initialCharacters);
     }
     
     // 다이어리는 빈 배열로 시작
     await setData(storageKeys.DIARIES, []);
+    
+    // 대표 캐릭터 설정 (초기에는 자기관리 캐릭터)
+    await setData(storageKeys.REPRESENTATIVE_CHARACTER, 'self_management');
     
     return {
       success: true,

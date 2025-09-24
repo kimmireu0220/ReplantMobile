@@ -1,15 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useUser } from '../contexts/UserContext';
-import { useCharacter } from '../hooks/useCharacter';
-import { CharacterCard } from '../components/specialized';
 import { Card } from '../components/ui';
 import { colors, spacing, typography } from '../utils/designTokens';
 import { resetAppData } from '../services/appService';
 
 const SettingsScreen = () => {
   const { user, logout } = useUser();
-  const { characters, selectedCharacter, selectCharacter } = useCharacter();
 
   const handleLogout = () => {
     Alert.alert(
@@ -26,10 +23,6 @@ const SettingsScreen = () => {
     );
   };
 
-  const handleCharacterSelect = (character) => {
-    selectCharacter(character);
-    Alert.alert('캐릭터 변경', `${character.name}으로 변경되었습니다!`);
-  };
 
   const handleResetData = () => {
     Alert.alert(
@@ -65,48 +58,6 @@ const SettingsScreen = () => {
           <Text style={styles.userInfo}>가입일: {new Date().toLocaleDateString('ko-KR')}</Text>
         </Card>
 
-        {/* 현재 캐릭터 */}
-        {selectedCharacter && (
-          <Card style={styles.characterCard}>
-            <Text style={styles.sectionTitle}>🌱 현재 캐릭터</Text>
-            <CharacterCard 
-              character={selectedCharacter}
-              style={styles.currentCharacter}
-            />
-          </Card>
-        )}
-
-        {/* 캐릭터 선택 */}
-        {characters.length > 1 && (
-          <Card style={styles.characterSelectionCard}>
-            <Text style={styles.sectionTitle}>🔄 캐릭터 변경</Text>
-            <Text style={styles.sectionDescription}>
-              다른 캐릭터로 변경할 수 있습니다.
-            </Text>
-            {characters.map((character) => (
-              <TouchableOpacity
-                key={character.id}
-                style={[
-                  styles.characterOption,
-                  selectedCharacter?.id === character.id && styles.selectedCharacter
-                ]}
-                onPress={() => handleCharacterSelect(character)}
-                activeOpacity={0.7}
-              >
-                <Text style={styles.characterEmoji}>
-                  {character.level >= 10 ? '🌳' : character.level >= 7 ? '🌿' : character.level >= 4 ? '🌱' : '🌰'}
-                </Text>
-                <View style={styles.characterInfo}>
-                  <Text style={styles.characterName}>{character.name}</Text>
-                  <Text style={styles.characterLevel}>Lv.{character.level}</Text>
-                </View>
-                {selectedCharacter?.id === character.id && (
-                  <Text style={styles.selectedText}>✓</Text>
-                )}
-              </TouchableOpacity>
-            ))}
-          </Card>
-        )}
 
         
         {/* 계정 설정 */}
@@ -166,62 +117,11 @@ const styles = StyleSheet.create({
     color: colors.text.secondary,
     marginBottom: spacing[1],
   },
-  characterCard: {
-    marginBottom: spacing[6],
-  },
-  currentCharacter: {
-    marginTop: spacing[3],
-  },
-  characterSelectionCard: {
-    marginBottom: spacing[6],
-  },
   sectionTitle: {
     fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.bold,
     color: colors.text.primary,
     marginBottom: spacing[3],
-  },
-  sectionDescription: {
-    fontSize: typography.fontSize.sm,
-    color: colors.text.secondary,
-    marginBottom: spacing[4],
-    lineHeight: typography.lineHeight.normal * typography.fontSize.sm,
-  },
-  characterOption: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: spacing[3],
-    marginBottom: spacing[2],
-    backgroundColor: colors.background.primary,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.border.light,
-  },
-  selectedCharacter: {
-    backgroundColor: colors.primary[100],
-    borderColor: colors.primary[500],
-  },
-  characterEmoji: {
-    fontSize: 24,
-    marginRight: spacing[3],
-  },
-  characterInfo: {
-    flex: 1,
-  },
-  characterName: {
-    fontSize: typography.fontSize.base,
-    fontWeight: typography.fontWeight.medium,
-    color: colors.text.primary,
-    marginBottom: spacing[1],
-  },
-  characterLevel: {
-    fontSize: typography.fontSize.sm,
-    color: colors.text.secondary,
-  },
-  selectedText: {
-    fontSize: typography.fontSize.lg,
-    color: colors.primary[500],
-    fontWeight: typography.fontWeight.bold,
   },
   themeCard: {
     marginBottom: spacing[6],
