@@ -82,7 +82,6 @@ const CharacterGuideScreen = () => {
     return (
       <View style={[styles.container, { backgroundColor: colors.background.secondary }]}>
         <View style={[styles.header, { backgroundColor: colors.background.primary }]}>
-          <Text style={[styles.title, { color: colors.text.primary }]}>📚 캐릭터 도감</Text>
         </View>
         <View style={styles.loadingContainer}>
           <Text style={[styles.loadingText, { color: colors.text.secondary }]}>캐릭터 정보를 불러오는 중...</Text>
@@ -95,7 +94,6 @@ const CharacterGuideScreen = () => {
     return (
       <View style={[styles.container, { backgroundColor: colors.background.secondary }]}>
         <View style={[styles.header, { backgroundColor: colors.background.primary }]}>
-          <Text style={[styles.title, { color: colors.text.primary }]}>📚 캐릭터 도감</Text>
         </View>
         <View style={styles.errorContainer}>
           <Text style={[styles.errorText, { color: colors.text.secondary }]}>캐릭터 정보를 불러올 수 없습니다.</Text>

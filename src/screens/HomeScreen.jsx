@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useUser } from '../contexts/UserContext';
 import { useCharacter } from '../hooks/useCharacter';
 import { useMission } from '../hooks/useMission';
@@ -28,9 +28,6 @@ const HomeScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        {user && (
-          <Text style={styles.userInfo}>👤 {user.nickname}</Text>
-        )}
       </View>
       
       <View style={styles.content}>
@@ -51,7 +48,19 @@ const HomeScreen = () => {
         
         {/* 추천 미션 */}
         <View style={styles.missionSection}>
-          <Text style={styles.sectionTitle}>🎯 추천 미션</Text>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>🎯 추천 미션</Text>
+            <TouchableOpacity 
+              style={styles.viewAllButton}
+              onPress={() => {
+                // 네비게이션은 AppNavigator에서 처리됨
+                console.log('미션 화면으로 이동');
+              }}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.viewAllText}>모두 보기</Text>
+            </TouchableOpacity>
+          </View>
           {recommendedMissions.length > 0 ? (
             recommendedMissions.map((mission) => (
               <MissionCard
@@ -115,11 +124,29 @@ const styles = StyleSheet.create({
   missionSection: {
     marginBottom: spacing[8],
   },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: spacing[4],
+  },
   sectionTitle: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
     color: colors.text.primary,
-    marginBottom: spacing[4],
+  },
+  viewAllButton: {
+    backgroundColor: colors.primary[100],
+    paddingHorizontal: spacing[3],
+    paddingVertical: spacing[2],
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.primary[300],
+  },
+  viewAllText: {
+    fontSize: typography.fontSize.sm,
+    color: colors.primary[600],
+    fontWeight: typography.fontWeight.medium,
   },
   characterCard: {
     marginBottom: spacing[4],

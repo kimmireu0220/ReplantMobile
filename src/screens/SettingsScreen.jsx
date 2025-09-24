@@ -32,6 +32,9 @@ const SettingsScreen = () => {
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background.secondary }]}>
+      <View style={styles.header}>
+      </View>
+      
       <View style={styles.content}>
         {/* 사용자 정보 */}
         <Card style={styles.userCard}>
