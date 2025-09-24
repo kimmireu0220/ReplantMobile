@@ -34,83 +34,6 @@
   },
   {
     "id": 4,
-    "mission_id": "sm4",
-    "title": "옷장 정리하기",
-    "description": "옷들을 계절별로 정리하고 정돈해보세요",
-    "emoji": "👕",
-    "difficulty": "hard",
-    "experience": 75,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 5,
-    "mission_id": "sm5",
-    "title": "화장실 청소하기",
-    "description": "화장실을 깨끗하게 청소하고 소독해보세요",
-    "emoji": "🚽",
-    "difficulty": "hard",
-    "experience": 500,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 6,
-    "mission_id": "sm6",
-    "title": "쓰레기 분리수거하기",
-    "description": "분리수거를 마치고 깔끔한 사진을 남겨보세요",
-    "emoji": "♻️",
-    "difficulty": "easy",
-    "experience": 40,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 7,
-    "mission_id": "sm7",
-    "title": "침구 정리/교체하기",
-    "description": "침구를 정리하거나 교체한 후 사진을 남겨보세요",
-    "emoji": "🛏️",
-    "difficulty": "medium",
-    "experience": 55,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 8,
-    "mission_id": "sm8",
-    "title": "냉장고 선반 한 칸 정리",
-    "description": "냉장고 선반 한 칸을 정리하고 사진을 남겨보세요",
-    "emoji": "🧊",
-    "difficulty": "medium",
-    "experience": 60,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 9,
-    "mission_id": "sm9",
-    "title": "베란다/현관 바닥 청소",
-    "description": "바닥 청소 후 깔끔해진 모습을 사진으로 남겨보세요",
-    "emoji": "🧽",
-    "difficulty": "hard",
-    "experience": 75,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 10,
-    "mission_id": "sm10",
-    "title": "빨래 개서 수납하기",
-    "description": "빨래를 개고 정리한 후 사진을 남겨보세요",
-    "emoji": "🧺",
-    "difficulty": "easy",
-    "experience": 45,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 11,
     "mission_id": "sm11",
     "title": "화분 물주기",
     "description": "실내 식물에 물 준 후 사진을 제출하세요",
@@ -121,106 +44,7 @@
     "category_id": "self_management"
   },
   {
-    "id": 12,
-    "mission_id": "sm12",
-    "title": "신발장 정리하기",
-    "description": "신발장을 정리하고 깔끔하게 정돈해보세요",
-    "emoji": "👟",
-    "difficulty": "easy",
-    "experience": 45,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 13,
-    "mission_id": "sm13",
-    "title": "거울 닦기",
-    "description": "화장실이나 거실 거울을 깨끗하게 닦아보세요",
-    "emoji": "🪞",
-    "difficulty": "easy",
-    "experience": 35,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 14,
-    "mission_id": "sm14",
-    "title": "책상 위 정리하기",
-    "description": "책상 위를 깔끔하게 정리하고 사진을 남겨보세요",
-    "emoji": "📋",
-    "difficulty": "easy",
-    "experience": 40,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 15,
-    "mission_id": "sm15",
-    "title": "침실 바닥 청소",
-    "description": "침실 바닥을 청소하고 깔끔하게 정리해보세요",
-    "emoji": "🛏️",
-    "difficulty": "medium",
-    "experience": 55,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 16,
-    "mission_id": "sm16",
-    "title": "주방 싱크대 청소",
-    "description": "주방 싱크대를 깨끗하게 청소해보세요",
-    "emoji": "🚰",
-    "difficulty": "medium",
-    "experience": 50,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 17,
-    "mission_id": "sm17",
-    "title": "창문 닦기",
-    "description": "거실이나 침실 창문을 깨끗하게 닦아보세요",
-    "emoji": "🪟",
-    "difficulty": "medium",
-    "experience": 60,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 18,
-    "mission_id": "sm18",
-    "title": "전자제품 먼지 제거",
-    "description": "TV, 컴퓨터 등 전자제품의 먼지를 제거해보세요",
-    "emoji": "📺",
-    "difficulty": "easy",
-    "experience": 45,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 19,
-    "mission_id": "sm19",
-    "title": "화장대 정리하기",
-    "description": "화장대를 정리하고 깔끔하게 정돈해보세요",
-    "emoji": "💄",
-    "difficulty": "medium",
-    "experience": 50,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 20,
-    "mission_id": "sm20",
-    "title": "발코니 청소하기",
-    "description": "발코니를 청소하고 깔끔하게 정리해보세요",
-    "emoji": "🏠",
-    "difficulty": "hard",
-    "experience": 80,
-    "created_at": null,
-    "category_id": "self_management"
-  },
-  {
-    "id": 21,
+    "id": 5,
     "mission_id": "cm1",
     "title": "가볍게 스트레칭하기",
     "description": "5분간 전신 스트레칭으로 몸을 풀어보세요",
@@ -231,7 +55,7 @@
     "category_id": "communication"
   },
   {
-    "id": 22,
+    "id": 6,
     "mission_id": "cm2",
     "title": "10분 산책하기",
     "description": "가벼운 산책으로 몸과 마음을 건강하게",
@@ -242,7 +66,7 @@
     "category_id": "communication"
   },
   {
-    "id": 23,
+    "id": 7,
     "mission_id": "cm3",
     "title": "홈 운동하기",
     "description": "집에서 할 수 있는 간단한 운동을 해보세요",
@@ -253,7 +77,7 @@
     "category_id": "communication"
   },
   {
-    "id": 24,
+    "id": 8,
     "mission_id": "cm4",
     "title": "요가나 명상하기",
     "description": "마음을 진정시키는 요가나 명상을 해보세요",
@@ -264,7 +88,7 @@
     "category_id": "communication"
   },
   {
-    "id": 25,
+    "id": 9,
     "mission_id": "cm5",
     "title": "줄넘기 10분",
     "description": "줄넘기로 유산소 운동을 해보세요",
@@ -275,7 +99,7 @@
     "category_id": "communication"
   },
   {
-    "id": 26,
+    "id": 10,
     "mission_id": "cm6",
     "title": "빠르게 걷기 5분",
     "description": "빠르게 걷기를 5분간 진행하고 타이머를 완료하세요",
@@ -286,7 +110,7 @@
     "category_id": "communication"
   },
   {
-    "id": 27,
+    "id": 11,
     "mission_id": "cm7",
     "title": "코어 인터벌 5분",
     "description": "코어 중심 인터벌을 5분간 진행하고 타이머를 완료하세요",
@@ -297,7 +121,7 @@
     "category_id": "communication"
   },
   {
-    "id": 28,
+    "id": 12,
     "mission_id": "cm8",
     "title": "스쿼트 50회 촬영",
     "description": "스쿼트 50회 동작을 영상으로 촬영해 업로드하세요",
@@ -308,7 +132,7 @@
     "category_id": "communication"
   },
   {
-    "id": 29,
+    "id": 13,
     "mission_id": "cm9",
     "title": "자전거 타기 인증",
     "description": "자전거를 타고 촬영한 사진을 제출하세요",
@@ -319,7 +143,7 @@
     "category_id": "communication"
   },
   {
-    "id": 30,
+    "id": 14,
     "mission_id": "cm10",
     "title": "HIIT 따라하기",
     "description": "HIIT 스트레칭 영상을 따라하고 완료 버튼을 누르세요",
@@ -330,7 +154,7 @@
     "category_id": "communication"
   },
   {
-    "id": 31,
+    "id": 15,
     "mission_id": "cm11",
     "title": "팔굽혀펴기 10회",
     "description": "팔굽혀펴기를 10회 하고 완료 인증하세요",
@@ -341,7 +165,7 @@
     "category_id": "communication"
   },
   {
-    "id": 32,
+    "id": 16,
     "mission_id": "cm12",
     "title": "플랭크 30초",
     "description": "플랭크를 30초간 유지하고 완료 인증하세요",
@@ -352,7 +176,7 @@
     "category_id": "communication"
   },
   {
-    "id": 33,
+    "id": 17,
     "mission_id": "cm13",
     "title": "계단 오르기",
     "description": "계단을 5층 오르고 내려오기",
@@ -363,7 +187,7 @@
     "category_id": "communication"
   },
   {
-    "id": 34,
+    "id": 18,
     "mission_id": "cm14",
     "title": "춤추기 5분",
     "description": "좋아하는 음악에 맞춰 5분간 춤춰보세요",
@@ -374,7 +198,7 @@
     "category_id": "communication"
   },
   {
-    "id": 35,
+    "id": 19,
     "mission_id": "cm15",
     "title": "수분 섭취 기록",
     "description": "하루 물 8잔 마시고 기록 인증하세요",
@@ -385,7 +209,7 @@
     "category_id": "communication"
   },
   {
-    "id": 36,
+    "id": 20,
     "mission_id": "cm16",
     "title": "아침 스트레칭",
     "description": "아침에 일어나서 10분간 스트레칭하기",
@@ -396,7 +220,7 @@
     "category_id": "communication"
   },
   {
-    "id": 37,
+    "id": 21,
     "mission_id": "cm17",
     "title": "저녁 산책",
     "description": "저녁에 15분간 산책하기",
@@ -407,7 +231,7 @@
     "category_id": "communication"
   },
   {
-    "id": 38,
+    "id": 22,
     "mission_id": "cm18",
     "title": "홈짐 운동",
     "description": "집에서 할 수 있는 근력 운동 20분",
@@ -418,7 +242,7 @@
     "category_id": "communication"
   },
   {
-    "id": 39,
+    "id": 23,
     "mission_id": "cm19",
     "title": "수영하기",
     "description": "수영장에서 30분 수영하기",
@@ -429,7 +253,7 @@
     "category_id": "communication"
   },
   {
-    "id": 40,
+    "id": 24,
     "mission_id": "cm20",
     "title": "등산하기",
     "description": "가까운 산이나 언덕 등산하기",
@@ -440,7 +264,7 @@
     "category_id": "communication"
   },
   {
-    "id": 41,
+    "id": 25,
     "mission_id": "cr1",
     "title": "책 한 권 읽기",
     "description": "좋아하는 책을 읽으며 지식을 넓혀보세요",
@@ -451,7 +275,7 @@
     "category_id": "career"
   },
   {
-    "id": 42,
+    "id": 26,
     "mission_id": "cr2",
     "title": "뉴스 읽기",
     "description": "오늘의 뉴스를 읽고 세상의 변화를 알아보세요",
@@ -462,7 +286,7 @@
     "category_id": "career"
   },
   {
-    "id": 43,
+    "id": 27,
     "mission_id": "cr3",
     "title": "블로그나 기사 읽기",
     "description": "관심 있는 주제의 글을 읽어보세요",
@@ -473,7 +297,7 @@
     "category_id": "career"
   },
   {
-    "id": 44,
+    "id": 28,
     "mission_id": "cr4",
     "title": "전자책 읽기",
     "description": "디지털 도서로 새로운 지식을 얻어보세요",
@@ -484,7 +308,7 @@
     "category_id": "career"
   },
   {
-    "id": 45,
+    "id": 29,
     "mission_id": "cr5",
     "title": "전문서적 읽기",
     "description": "전문 분야의 책을 읽어 지식을 넓혀보세요",
@@ -495,7 +319,7 @@
     "category_id": "career"
   },
   {
-    "id": 46,
+    "id": 30,
     "mission_id": "cr1",
     "title": "좋아하는 음악 듣기",
     "description": "기분을 좋게 해주는 음악을 들어보세요",
@@ -506,7 +330,7 @@
     "category_id": "career"
   },
   {
-    "id": 47,
+    "id": 31,
     "mission_id": "cr2",
     "title": "간단한 그림 그리기",
     "description": "펜과 종이로 자유롭게 그림을 그려보세요",
@@ -517,7 +341,7 @@
     "category_id": "career"
   },
   {
-    "id": 48,
+    "id": 32,
     "mission_id": "cr3",
     "title": "일기나 글쓰기",
     "description": "오늘의 생각이나 느낌을 글로 표현해보세요",
@@ -528,7 +352,7 @@
     "category_id": "career"
   },
   {
-    "id": 49,
+    "id": 33,
     "mission_id": "cr4",
     "title": "요리나 베이킹",
     "description": "새로운 레시피로 요리나 베이킹을 시도해보세요",
@@ -539,7 +363,7 @@
     "category_id": "career"
   },
   {
-    "id": 50,
+    "id": 34,
     "mission_id": "cr5",
     "title": "사진 촬영하기",
     "description": "일상의 아름다운 순간을 카메라로 담아보세요",
@@ -550,7 +374,7 @@
     "category_id": "career"
   },
   {
-    "id": 51,
+    "id": 35,
     "mission_id": "so1",
     "title": "친구에게 메시지 보내기",
     "description": "오랜 친구에게 안부 인사를 해보세요",
@@ -561,7 +385,7 @@
     "category_id": "career"
   },
   {
-    "id": 52,
+    "id": 36,
     "mission_id": "so2",
     "title": "가족과 대화하기",
     "description": "가족과 오늘 하루에 대해 이야기해보세요",
@@ -572,7 +396,7 @@
     "category_id": "career"
   },
   {
-    "id": 53,
+    "id": 37,
     "mission_id": "so3",
     "title": "온라인 커뮤니티 참여하기",
     "description": "관심 있는 주제의 온라인 모임에 참여해보세요",
@@ -583,7 +407,7 @@
     "category_id": "career"
   },
   {
-    "id": 54,
+    "id": 38,
     "mission_id": "so4",
     "title": "봉사활동 알아보기",
     "description": "지역사회 봉사활동에 참여해보세요",
@@ -594,7 +418,7 @@
     "category_id": "career"
   },
   {
-    "id": 55,
+    "id": 39,
     "mission_id": "so5",
     "title": "동호회나 모임 참여하기",
     "description": "새로운 사람들과 만나는 모임에 참여해보세요",
@@ -605,7 +429,7 @@
     "category_id": "career"
   },
   {
-    "id": 56,
+    "id": 40,
     "mission_id": "cr6",
     "title": "독서 노트 퀴즈",
     "description": "독서 노트를 바탕으로 퀴즈를 풀어보세요",
@@ -616,7 +440,7 @@
     "category_id": "career"
   },
   {
-    "id": 57,
+    "id": 41,
     "mission_id": "cr7",
     "title": "요약/서평 퀴즈",
     "description": "요약/서평 내용을 바탕으로 퀴즈를 풀어보세요",
@@ -627,7 +451,7 @@
     "category_id": "career"
   },
   {
-    "id": 58,
+    "id": 42,
     "mission_id": "cr8",
     "title": "과학 기사 퀴즈",
     "description": "과학 기사에 대한 퀴즈를 풀어보세요",
@@ -638,7 +462,7 @@
     "category_id": "career"
   },
   {
-    "id": 59,
+    "id": 43,
     "mission_id": "cr9",
     "title": "경제/경영 기사 퀴즈",
     "description": "경제/경영 기사에 대한 퀴즈를 풀어보세요",
@@ -649,7 +473,7 @@
     "category_id": "career"
   },
   {
-    "id": 60,
+    "id": 44,
     "mission_id": "cr10",
     "title": "학술 초록 퀴즈",
     "description": "학술 논문 초록에 대한 퀴즈를 풀어보세요",
@@ -660,7 +484,7 @@
     "category_id": "career"
   },
   {
-    "id": 61,
+    "id": 45,
     "mission_id": "cr6",
     "title": "악기 연습 5분",
     "description": "악기 연습을 5분간 진행하고 타이머를 완료하세요",
@@ -671,7 +495,7 @@
     "category_id": "career"
   },
   {
-    "id": 62,
+    "id": 46,
     "mission_id": "cr7",
     "title": "짧은 시/글귀 작성",
     "description": "짧은 시 또는 글귀를 일기 모달에 작성하세요",
@@ -682,7 +506,7 @@
     "category_id": "career"
   },
   {
-    "id": 63,
+    "id": 47,
     "mission_id": "cr8",
     "title": "색칠·도안 채색",
     "description": "색칠/도안 채색 결과물을 사진으로 제출하세요",
@@ -693,7 +517,7 @@
     "category_id": "career"
   },
   {
-    "id": 64,
+    "id": 48,
     "mission_id": "cr9",
     "title": "캘리그래피 연습",
     "description": "캘리그래피 연습 결과물을 사진으로 제출하세요",

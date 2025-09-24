@@ -60,7 +60,7 @@ export const getUserByNickname = async (nickname) => {
   }
 };
 
-// 기존 사용자 데이터 마이그레이션 (6개 카테고리 → 3개 카테고리)
+// 기존 사용자 데이터 마이그레이션 (3개 카테고리 유지)
 export const migrateUserData = async (nickname) => {
   try {
     const storageKeys = getStorageKeys(nickname);
@@ -69,20 +69,11 @@ export const migrateUserData = async (nickname) => {
     const existingMissions = await getData(storageKeys.MISSIONS);
     if (existingMissions.length === 0) return { success: true, message: '마이그레이션할 데이터가 없습니다.' };
     
-    // 카테고리 매핑 (6개 → 3개)
-    const categoryMapping = {
-      'cleaning': 'self_management',      // 청소 → 자기관리
-      'exercise': 'communication',       // 운동 → 소통관리  
-      'reading': 'career',                // 독서 → 커리어관리
-      'creativity': 'career',            // 창의 → 커리어관리
-      'social': 'career',                // 사회 → 커리어관리
-      'selfcare': 'self_management'      // 셀프케어 → 자기관리
-    };
-    
-    // 미션 카테고리 업데이트
+    // 유효한 카테고리만 유지 (self_management, communication, career)
+    const validCategories = ['self_management', 'communication', 'career'];
     const migratedMissions = existingMissions.map(mission => ({
       ...mission,
-      category: categoryMapping[mission.category] || 'career'
+      category: validCategories.includes(mission.category) ? mission.category : 'career'
     }));
     
     await setData(storageKeys.MISSIONS, migratedMissions);
