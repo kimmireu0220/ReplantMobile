@@ -6,6 +6,7 @@ import { useMission } from '../hooks/useMission';
 import { CharacterCard, MissionCard } from '../components/specialized';
 import { Card, Loading, ErrorBoundary } from '../components/ui';
 import { colors, spacing, typography } from '../utils/designTokens';
+import { executeWithErrorHandling } from '../utils/errorHandler';
 
 const HomeScreen = () => {
   const { user } = useUser();
@@ -20,24 +21,25 @@ const HomeScreen = () => {
 
   // 미션 완료 핸들러
   const handleCompleteMission = async (missionId) => {
-    try {
-      const result = await completeMissionWithPhoto(missionId, null);
-      if (result.success) {
-        // 성공 시 추가 처리 (예: 토스트 메시지)
-      }
-    } catch (error) {
-      console.error('미션 완료 실패:', error);
+    const result = await executeWithErrorHandling(
+      () => completeMissionWithPhoto(missionId, null),
+      '미션 완료'
+    );
+    
+    if (result.success) {
+      // 성공 시 추가 처리 (예: 토스트 메시지)
     }
   };
 
   // 미션 완료 취소 핸들러
   const handleUncompleteMission = async (missionId) => {
-    try {
-      const result = await uncompleteMission(missionId);
-      if (result.success) {
-      }
-    } catch (error) {
-      console.error('미션 완료 취소 실패:', error);
+    const result = await executeWithErrorHandling(
+      () => uncompleteMission(missionId),
+      '미션 완료 취소'
+    );
+    
+    if (result.success) {
+      // 성공 시 추가 처리
     }
   };
 

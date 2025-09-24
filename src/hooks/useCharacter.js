@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getData, getStorageKeys, autoLevelupCharacter, setData } from '../services';
 import { useUser } from '../contexts/UserContext';
 
@@ -143,7 +143,8 @@ export const useCharacter = () => {
     }
   }, [characters, currentNickname]);
 
-  return {
+  // 메모이제이션된 반환 객체
+  return useMemo(() => ({
     characters,
     selectedCharacter,
     representativeCharacter,
@@ -153,6 +154,16 @@ export const useCharacter = () => {
     addExperienceByCategory,
     selectCharacter,
     setRepresentative,
-  };
+  }), [
+    characters,
+    selectedCharacter,
+    representativeCharacter,
+    loading,
+    error,
+    loadCharacters,
+    addExperienceByCategory,
+    selectCharacter,
+    setRepresentative,
+  ]);
 };
 

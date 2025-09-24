@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getData, updateData, getStorageKeys } from '../services';
 import { useUser } from '../contexts/UserContext';
 
@@ -123,13 +123,21 @@ export const useMission = (addExperienceByCategory) => {
     }
   }, [missions, currentNickname]);
 
-  return {
+  // 메모이제이션된 반환 객체
+  return useMemo(() => ({
     missions,
     loading,
     error,
     loadMissions,
     completeMissionWithPhoto,
     uncompleteMission,
-  };
+  }), [
+    missions,
+    loading,
+    error,
+    loadMissions,
+    completeMissionWithPhoto,
+    uncompleteMission,
+  ]);
 };
 
