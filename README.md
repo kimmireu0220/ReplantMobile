@@ -1,97 +1,146 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🌱 Replant Mobile App
 
-# Getting Started
+감정 회복을 위한 모바일 앱입니다. 매일의 감정을 기록하고, 미션을 완료하며, 캐릭터와 함께 성장해보세요.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## ✨ 주요 기능
 
-## Step 1: Start Metro
+### 🎯 미션 시스템
+- **카테고리별 미션**: 운동, 청소, 독서, 자기돌봄, 사회활동, 창의활동
+- **사진 인증**: 카메라 또는 갤러리에서 사진을 선택하여 미션 완료 인증
+- **진행률 추적**: 전체 미션 진행률을 시각적으로 확인
+- **경험치 획득**: 미션 완료 시 캐릭터에게 경험치 제공
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+### 📝 다이어리 시스템
+- **감정 기록**: 8가지 감정 중 선택하여 오늘의 기분 기록
+- **자유 작성**: 오늘의 이야기를 자유롭게 작성
+- **일기 관리**: 작성, 수정, 삭제 기능
+- **감정 추적**: 시간에 따른 감정 변화 추적
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### 🌱 캐릭터 시스템
+- **성장 시스템**: 미션 완료로 경험치 획득하여 레벨업
+- **다양한 캐릭터**: 여러 캐릭터 중 선택 가능
+- **시각적 피드백**: 레벨에 따른 캐릭터 변화 (🌰 → 🌱 → 🌿 → 🌳)
 
-```sh
-# Using npm
-npm start
+### 🎨 테마 시스템
+- **다크/라이트 모드**: 사용자 선호에 따른 테마 변경
+- **일관된 디자인**: 디자인 토큰 기반의 일관된 UI/UX
 
-# OR using Yarn
-yarn start
+## 🚀 기술 스택
+
+### Frontend
+- **React Native**: 크로스 플랫폼 모바일 앱 개발
+- **React Navigation**: 네비게이션 관리
+- **Context API**: 전역 상태 관리
+- **AsyncStorage**: 로컬 데이터 저장
+
+### Backend
+- **Supabase**: 백엔드 서비스 (데이터베이스, 인증, 스토리지)
+- **Row Level Security (RLS)**: 데이터 보안
+- **Real-time**: 실시간 데이터 동기화
+
+### 개발 도구
+- **TypeScript**: 타입 안전성
+- **ESLint**: 코드 품질 관리
+- **Prettier**: 코드 포맷팅
+- **Jest**: 테스트 프레임워크
+
+## 📱 설치 및 실행
+
+### 사전 요구사항
+- Node.js (v18 이상)
+- React Native CLI
+- Xcode (iOS 개발용)
+- Android Studio (Android 개발용)
+
+### 설치
+```bash
+# 의존성 설치
+npm install
+
+# iOS 의존성 설치
+cd ios && pod install && cd ..
 ```
 
-## Step 2: Build and run your app
+### 실행
+```bash
+# iOS 시뮬레이터에서 실행
+npx react-native run-ios
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+# Android 에뮬레이터에서 실행
+npx react-native run-android
 ```
 
-### iOS
+## 🔧 환경 설정
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+### Supabase 설정
+1. Supabase 프로젝트 생성
+2. 환경 변수 설정:
+   ```javascript
+   const supabaseUrl = 'YOUR_SUPABASE_URL';
+   const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
+   ```
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### iOS 권한 설정
+`ios/ReplantMobileApp/Info.plist`에 다음 권한이 설정되어 있습니다:
+- `NSCameraUsageDescription`: 카메라 사용 권한
+- `NSPhotoLibraryUsageDescription`: 갤러리 접근 권한
 
-```sh
-bundle install
+## 📁 프로젝트 구조
+
+```
+src/
+├── components/          # 재사용 가능한 컴포넌트
+│   ├── ui/             # 기본 UI 컴포넌트
+│   └── specialized/    # 특화된 비즈니스 컴포넌트
+├── contexts/           # React Context (상태 관리)
+├── hooks/              # 커스텀 훅
+├── navigation/         # 네비게이션 설정
+├── screens/            # 화면 컴포넌트
+├── services/           # 외부 서비스 연동
+└── utils/              # 유틸리티 함수 및 상수
 ```
 
-Then, and every time you update your native dependencies, run:
+## 🎯 핵심 기능 상세
 
-```sh
-bundle exec pod install
-```
+### 인증 시스템
+- **닉네임 기반**: 이메일 없이 닉네임으로 간편 가입
+- **중복 검사**: 닉네임 중복 확인
+- **디바이스 ID**: 디바이스 기반 사용자 식별
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### 데이터 동기화
+- **실시간 동기화**: Supabase를 통한 실시간 데이터 동기화
+- **오프라인 지원**: AsyncStorage를 통한 오프라인 데이터 저장
+- **자동 백업**: 클라우드 자동 백업
 
-```sh
-# Using npm
-npm run ios
+## 🚀 배포
 
-# OR using Yarn
-yarn ios
-```
+### iOS App Store
+1. Xcode에서 프로젝트 열기
+2. Archive 생성
+3. App Store Connect에 업로드
+4. 심사 제출
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### Google Play Store
+1. Android Studio에서 APK/AAB 생성
+2. Google Play Console에 업로드
+3. 심사 제출
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## 🤝 기여하기
 
-## Step 3: Modify your app
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Now that you have successfully run the app, let's make changes!
+## 📄 라이선스
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 `LICENSE` 파일을 참조하세요.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## 📞 지원
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+문제가 있거나 질문이 있으시면 이슈를 생성해 주세요.
 
-## Congratulations! :tada:
+---
 
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**Replant** - 감정 회복을 위한 여정에 함께하세요! 🌱

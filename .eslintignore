@@ -1,0 +1,7 @@
+replant-web/public/sw.js
+**/sw.js
+**/service-worker.js
+node_modules/
+android/
+ios/
+replant-web/
