@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "level": 1,
+    "name": "씨앗",
+    "title": "새싹 꿈나무",
+    "default_image": "level1/default.png",
+    "waving_image": "level1/waving.png",
+    "happy_image": "level1/happy.png",
+    "description": "작은 씨앗이지만 큰 꿈을 가지고 있어요",
+    "experience_required": 0,
+    "created_at": "2025-08-04 15:53:12.117415+00",
+    "updated_at": "2025-08-07 08:11:47.17139+00"
+  },
+  {
+    "id": 2,
+    "level": 2,
+    "name": "새싹",
+    "title": "성장하는 새싹",
+    "default_image": "level2/default.png",
+    "waving_image": "level2/waving.png",
+    "happy_image": "level2/happy.png",
+    "description": "땅을 뚫고 올라온 새싹이에요",
+    "experience_required": 1000,
+    "created_at": "2025-08-04 15:53:12.117415+00",
+    "updated_at": "2025-08-07 08:11:47.17139+00"
+  },
+  {
+    "id": 5,
+    "level": 3,
+    "name": "어린 식물",
+    "title": "푸른 꿈나무",
+    "default_image": "level3/default.png",
+    "waving_image": "level3/waving.png",
+    "happy_image": "level3/happy.png",
+    "description": "잎이 자라기 시작한 어린 식물이에요",
+    "experience_required": 2500,
+    "created_at": "2025-08-04 15:53:12.117415+00",
+    "updated_at": "2025-08-07 08:11:47.17139+00"
+  },
+  {
+    "id": 3,
+    "level": 4,
+    "name": "나무",
+    "title": "굳건한 나무",
+    "default_image": "level4/default.png",
+    "waving_image": "level4/waving.png",
+    "happy_image": "level4/happy.png",
+    "description": "튼튼한 줄기를 가진 성장한 나무예요",
+    "experience_required": 5000,
+    "created_at": "2025-08-04 15:53:12.117415+00",
+    "updated_at": "2025-08-07 08:11:47.17139+00"
+  },
+  {
+    "id": 6,
+    "level": 5,
+    "name": "열매 나무",
+    "title": "풍성한 열매나무",
+    "default_image": "level5/default.png",
+    "waving_image": "level5/waving.png",
+    "happy_image": "level5/happy.png",
+    "description": "맛있는 열매를 맺은 나무예요",
+    "experience_required": 10000,
+    "created_at": "2025-08-04 15:53:12.117415+00",
+    "updated_at": "2025-08-07 08:11:47.17139+00"
+  },
+  {
+    "id": 4,
+    "level": 6,
+    "name": "성숙한 나무",
+    "title": "위대한 성숙한 나무",
+    "default_image": "level6/default.png",
+    "waving_image": "level6/waving.png",
+    "happy_image": "level6/happy.png",
+    "description": "오랜 세월을 거쳐 성숙한 위대한 나무예요",
+    "experience_required": 20000,
+    "created_at": "2025-08-04 15:53:12.117415+00",
+    "updated_at": "2025-08-07 08:11:47.17139+00"
+  }
+]
