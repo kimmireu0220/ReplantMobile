@@ -116,10 +116,10 @@ export const initializeUserData = async (userId, nickname) => {
       const defaultMissions = [
         {
           id: `mission_${Date.now()}_1`,
-          mission_id: 'cl1',
-          title: '방 정리하기',
-          description: '작은 공간이라도 깔끔하게 정리해보세요',
-          emoji: '🧹',
+          mission_id: 'sm1',
+          title: '10분 명상하기',
+          description: '마음을 진정시키는 명상을 해보세요',
+          emoji: '🧘',
           category: 'self_management',
           difficulty: 'medium',
           experience: 70,

@@ -5,6 +5,7 @@ import { useCharacter } from '../hooks/useCharacter';
 import { CharacterCard } from '../components/specialized';
 import { Card } from '../components/ui';
 import { colors, spacing, typography } from '../utils/designTokens';
+import { resetAppData } from '../services/appService';
 
 const SettingsScreen = () => {
   const { user, logout } = useUser();
@@ -28,6 +29,28 @@ const SettingsScreen = () => {
   const handleCharacterSelect = (character) => {
     selectCharacter(character);
     Alert.alert('캐릭터 변경', `${character.name}으로 변경되었습니다!`);
+  };
+
+  const handleResetData = () => {
+    Alert.alert(
+      '데이터 초기화',
+      '모든 데이터가 삭제됩니다. 정말로 초기화하시겠습니까?',
+      [
+        { text: '취소', style: 'cancel' },
+        { 
+          text: '초기화', 
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await resetAppData();
+              Alert.alert('완료', '데이터가 초기화되었습니다. 앱을 재시작해주세요.');
+            } catch (error) {
+              Alert.alert('오류', '데이터 초기화에 실패했습니다.');
+            }
+          }
+        }
+      ]
+    );
   };
 
   return (
@@ -92,6 +115,9 @@ const SettingsScreen = () => {
           <Text style={styles.sectionTitle}>🔐 계정</Text>
           <TouchableOpacity style={styles.logoutOption} onPress={handleLogout}>
             <Text style={styles.logoutText}>🚪 로그아웃</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.resetOption} onPress={handleResetData}>
+            <Text style={styles.resetText}>🗑️ 데이터 초기화</Text>
           </TouchableOpacity>
         </Card>
 
@@ -228,6 +254,19 @@ const styles = StyleSheet.create({
   logoutText: {
     fontSize: typography.fontSize.base,
     color: colors.error[600],
+    fontWeight: typography.fontWeight.medium,
+  },
+  resetOption: {
+    backgroundColor: colors.warning[50],
+    padding: spacing[4],
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: colors.border.light,
+    marginTop: spacing[3],
+  },
+  resetText: {
+    fontSize: typography.fontSize.base,
+    color: colors.warning[600],
     fontWeight: typography.fontWeight.medium,
   },
   appInfo: {
