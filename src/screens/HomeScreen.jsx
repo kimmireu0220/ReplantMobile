@@ -14,9 +14,28 @@ const HomeScreen = () => {
   const { missions, loading: missionLoading, error: missionError, completeMissionWithPhoto, uncompleteMission } = useMission(addExperienceByCategory);
 
 
-  // 추천 미션 (미완료된 미션 중 최대 3개)
+  // 추천 미션 (카테고리 우선순위: 자기관리 → 소통관리 → 커리어관리)
   const recommendedMissions = missions
     .filter(mission => !mission.completed)
+    .sort((a, b) => {
+      // 카테고리 우선순위 정의
+      const categoryPriority = {
+        'self_management': 1,    // 자기관리 (최우선)
+        'communication': 2,      // 소통관리 (두번째)
+        'career': 3             // 커리어관리 (세번째)
+      };
+      
+      const priorityA = categoryPriority[a.category] || 999;
+      const priorityB = categoryPriority[b.category] || 999;
+      
+      // 카테고리 우선순위로 정렬
+      if (priorityA !== priorityB) {
+        return priorityA - priorityB;
+      }
+      
+      // 같은 카테고리 내에서는 제목 순으로 정렬
+      return a.title.localeCompare(b.title);
+    })
     .slice(0, 3);
 
   // 미션 완료 핸들러
