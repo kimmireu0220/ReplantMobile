@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   
   icon: {
-    fontSize: 48,
+    fontSize: typography.fontSize['4xl'],
     marginBottom: spacing[4],
   },
   

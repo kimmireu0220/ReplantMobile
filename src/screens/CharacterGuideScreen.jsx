@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: spacing[5],
-    paddingTop: 60,
+    paddingTop: spacing[15],
     paddingBottom: spacing[5],
     borderBottomWidth: 1,
   },
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   emptyIcon: {
-    fontSize: 48,
+    fontSize: typography.fontSize['4xl'],
     marginBottom: spacing[4],
   },
   emptyTitle: {

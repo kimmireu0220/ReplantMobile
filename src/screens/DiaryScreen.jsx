@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   emptyIcon: {
-    fontSize: 48,
+    fontSize: typography.fontSize['4xl'],
     marginBottom: spacing[4],
   },
   emptyTitle: {

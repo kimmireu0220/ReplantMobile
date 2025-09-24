@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   
   emotionEmoji: {
-    fontSize: 20,
+    fontSize: typography.fontSize.xl,
     marginRight: spacing[2],
   },
   

@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   
   categoryEmoji: {
-    fontSize: 20,
+    fontSize: typography.fontSize.xl,
     marginRight: spacing[2],
   },
   

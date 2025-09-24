@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     borderColor: colors.primary[500],
   },
   categoryEmoji: {
-    fontSize: 20,
+    fontSize: typography.fontSize.xl,
     marginBottom: spacing[1],
   },
   categoryName: {
@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   emptyIcon: {
-    fontSize: 48,
+    fontSize: typography.fontSize['4xl'],
     marginBottom: spacing[4],
   },
   emptyTitle: {
