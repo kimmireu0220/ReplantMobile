@@ -36,8 +36,7 @@ const HomeScreen = () => {
       
       <View style={styles.content}>
         <Text style={styles.welcomeText}>
-          안녕하세요, {user?.nickname || '사용자'}님!{'\n'}
-          오늘도 감정 회복을 위한 여정을 시작해보세요.
+          안녕하세요, {user?.nickname || '사용자'}님!
         </Text>
         
         {/* 메인 캐릭터 표시 */}
