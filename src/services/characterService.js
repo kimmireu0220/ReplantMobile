@@ -52,7 +52,6 @@ export const createCharacter = async (characterData, nickname) => {
     const newCharacter = {
       id: `character_${Date.now()}`,
       ...characterData,
-      created_at: new Date().toISOString()
     };
     
     const updatedCharacters = [...characters, newCharacter];

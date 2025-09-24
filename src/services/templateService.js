@@ -1,17 +1,11 @@
-import { getData, setData, getStorageKeys } from './storage';
+// 템플릿 서비스 - JSON 파일에서 직접 로드
 
 // 미션 템플릿 로드
 export const loadMissionTemplates = async () => {
   try {
-    const storageKeys = getStorageKeys('shared'); // 템플릿은 공유
-    const missionTemplates = await getData(storageKeys.MISSION_TEMPLATES);
-    if (missionTemplates.length === 0) {
-      // JSON 파일에서 로드
-      const missionTemplatesData = require('../data/missionTemplates.json');
-      await setData(storageKeys.MISSION_TEMPLATES, missionTemplatesData);
-      return missionTemplatesData;
-    }
-    return missionTemplates;
+    // 항상 JSON 파일에서 최신 템플릿 로드
+    const missionTemplatesData = require('../data/missionTemplates.json');
+    return missionTemplatesData;
   } catch (error) {
     console.error('미션 템플릿 로드 실패:', error);
     return [];
@@ -21,15 +15,9 @@ export const loadMissionTemplates = async () => {
 // 캐릭터 템플릿 로드
 export const loadCharacterTemplates = async () => {
   try {
-    const storageKeys = getStorageKeys('shared'); // 템플릿은 공유
-    const characterTemplates = await getData(storageKeys.CHARACTER_TEMPLATES);
-    if (characterTemplates.length === 0) {
-      // JSON 파일에서 로드
-      const characterTemplatesData = require('../data/characterTemplates.json');
-      await setData(storageKeys.CHARACTER_TEMPLATES, characterTemplatesData);
-      return characterTemplatesData;
-    }
-    return characterTemplates;
+    // 항상 JSON 파일에서 최신 템플릿 로드
+    const characterTemplatesData = require('../data/characterTemplates.json');
+    return characterTemplatesData;
   } catch (error) {
     console.error('캐릭터 템플릿 로드 실패:', error);
     return [];
@@ -56,22 +44,3 @@ export const loadTemplates = async () => {
   }
 };
 
-// 미션 템플릿 조회
-export const getMissionTemplates = async () => {
-  try {
-    return await getData(STORAGE_KEYS.MISSION_TEMPLATES);
-  } catch (error) {
-    console.error('미션 템플릿 조회 실패:', error);
-    return [];
-  }
-};
-
-// 캐릭터 템플릿 조회
-export const getCharacterTemplates = async () => {
-  try {
-    return await getData(STORAGE_KEYS.CHARACTER_TEMPLATES);
-  } catch (error) {
-    console.error('캐릭터 템플릿 조회 실패:', error);
-    return [];
-  }
-};

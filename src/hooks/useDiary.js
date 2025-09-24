@@ -19,7 +19,7 @@ export const useDiary = () => {
       const storageKeys = getStorageKeys(currentNickname);
       const diariesData = await getData(storageKeys.DIARIES);
       const sortedDiaries = diariesData.sort((a, b) => 
-        new Date(b.created_at) - new Date(a.created_at)
+        new Date(b.date) - new Date(a.date)
       );
 
       setDiaries(sortedDiaries);
@@ -45,8 +45,7 @@ export const useDiary = () => {
       const newDiary = await addData(storageKeys.DIARIES, {
         date: diaryData.date,
         emotion: diaryData.emotion,
-        content: diaryData.content,
-        created_at: new Date().toISOString()
+        content: diaryData.content
       });
 
       // 로컬 상태 업데이트

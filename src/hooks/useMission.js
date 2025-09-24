@@ -19,7 +19,7 @@ export const useMission = (addExperienceByCategory) => {
       const storageKeys = getStorageKeys(currentNickname);
       const missionsData = await getData(storageKeys.MISSIONS);
       const sortedMissions = missionsData.sort((a, b) => 
-        new Date(b.created_at) - new Date(a.created_at)
+        a.title.localeCompare(b.title)
       );
 
       setMissions(sortedMissions);
