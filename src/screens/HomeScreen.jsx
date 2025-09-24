@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.lg,
     color: colors.text.primary,
     lineHeight: typography.lineHeight.relaxed * typography.fontSize.lg,
+    marginTop: spacing[6],
     marginBottom: spacing[8],
     textAlign: 'center',
   },
