@@ -21,7 +21,7 @@ const NicknameScreen = ({ onNavigate }) => {
     setIsLoading(true);
     
     try {
-      // 로그인 처리 (닉네임 중복 확인 포함)
+      // 간단한 로그인 처리 (인증 없이)
       await login(nickname);
       // 성공 시 자동으로 홈 화면으로 이동
     } catch (error) {

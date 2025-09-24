@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { 
   getCurrentUserNickname, 
-  createUserWithNickname, 
-  checkNicknameDuplicate,
-  getCurrentUserId,
   logoutUser 
 } from '../services/supabase';
 
@@ -28,13 +26,12 @@ export const UserProvider = ({ children }) => {
 
   const loadUser = async () => {
     try {
-      const nickname = await getCurrentUserNickname();
-      const userId = await getCurrentUserId();
+      const nickname = await AsyncStorage.getItem('userNickname');
       
       if (nickname) {
         setUser({ 
           nickname, 
-          id: userId 
+          id: `user_${Date.now()}` 
         });
       }
     } catch (error) {
@@ -44,25 +41,18 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  // 사용자 로그인 (닉네임 중복 확인 포함)
+  // 사용자 로그인 (인증 없이 닉네임만으로)
   const login = async (nickname) => {
     try {
-      // 닉네임 중복 확인
-      const isDuplicate = await checkNicknameDuplicate(nickname);
-      if (isDuplicate) {
-        throw new Error('이미 사용 중인 닉네임입니다.');
-      }
-
-      // 사용자 생성
-      const userData = await createUserWithNickname(nickname);
-      if (!userData) {
-        throw new Error('사용자 생성에 실패했습니다.');
-      }
-
+      // 닉네임을 로컬 스토리지에 저장
+      await AsyncStorage.setItem('userNickname', nickname);
+      
+      // 사용자 상태 업데이트
       setUser({ 
         nickname, 
-        id: userData.id || userData 
+        id: `user_${Date.now()}` // 임시 ID 생성
       });
+      
       return true;
     } catch (error) {
       console.error('로그인 실패:', error);
@@ -83,13 +73,12 @@ export const UserProvider = ({ children }) => {
   // 사용자 정보 새로고침
   const refreshUser = async () => {
     try {
-      const nickname = await getCurrentUserNickname();
-      const userId = await getCurrentUserId();
+      const nickname = await AsyncStorage.getItem('userNickname');
       
       if (nickname) {
         setUser({ 
           nickname, 
-          id: userId 
+          id: `user_${Date.now()}` 
         });
       }
     } catch (error) {
