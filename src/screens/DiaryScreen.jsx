@@ -88,17 +88,6 @@ const DiaryScreen = () => {
       <View style={styles.header} />
       
       <ScrollView style={styles.content}>
-        {!showForm && (
-          <TouchableOpacity
-            style={styles.addButton}
-            onPress={() => setShowForm(true)}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.addButtonText}>+ 새 일기</Text>
-          </TouchableOpacity>
-        )}
-        
-        {!showForm && <View style={styles.spacer} />}
         
         {showForm ? (
           <Card style={styles.formCard}>
@@ -168,6 +157,17 @@ const DiaryScreen = () => {
           </>
         )}
       </ScrollView>
+      
+      {/* 플로팅 액션 버튼 */}
+      {!showForm && (
+        <TouchableOpacity
+          style={styles.fab}
+          onPress={() => setShowForm(true)}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.fabIcon}>+</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -193,19 +193,29 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.bold,
     color: colors.text.primary,
   },
-  addButton: {
+  fab: {
+    position: 'absolute',
+    bottom: spacing[6],
+    right: spacing[5],
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     backgroundColor: colors.primary[500],
-    paddingHorizontal: spacing[4],
-    paddingVertical: spacing[2],
-    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 8,
+    shadowColor: colors.primary[500],
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
   },
-  addButtonText: {
+  fabIcon: {
+    fontSize: 24,
     color: colors.text.inverse,
-    fontSize: typography.fontSize.sm,
-    fontWeight: typography.fontWeight.medium,
-  },
-  spacer: {
-    height: spacing[6],
+    fontWeight: typography.fontWeight.bold,
   },
   content: {
     flex: 1,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useUser } from '../contexts/UserContext';
 import { useCharacter } from '../hooks/useCharacter';
 import { useMission } from '../hooks/useMission';
@@ -11,6 +11,13 @@ const HomeScreen = () => {
   const { user } = useUser();
   const { representativeCharacter, loading: characterLoading, error: characterError, addExperienceByCategory } = useCharacter();
   const { missions, loading: missionLoading, error: missionError, completeMissionWithPhoto, uncompleteMission } = useMission(addExperienceByCategory);
+
+  // 디버깅 로그
+  console.log('HomeScreen 렌더링:', {
+    characterLoading,
+    representativeCharacter: representativeCharacter ? '있음' : '없음',
+    characterError
+  });
 
   // 추천 미션 (미완료된 미션 중 최대 3개)
   const recommendedMissions = missions
@@ -42,12 +49,54 @@ const HomeScreen = () => {
     }
   };
 
-  if (characterLoading || missionLoading) {
-    return <Loading text="데이터를 불러오는 중..." />;
+  // 디버깅을 위한 로그
+  console.log('HomeScreen - representativeCharacter:', representativeCharacter);
+  console.log('HomeScreen - characterLoading:', characterLoading);
+  console.log('HomeScreen - characterError:', characterError);
+  
+  // Alert로도 확인 (첫 번째 로드 시에만)
+  if (!characterLoading && !representativeCharacter) {
+    Alert.alert('디버깅', `캐릭터 로딩: ${characterLoading}, 대표 캐릭터: ${representativeCharacter ? '있음' : '없음'}, 에러: ${characterError || '없음'}`);
+  }
+
+  // 캐릭터 로딩 중이면 로딩 화면 표시
+  if (characterLoading) {
+    return <Loading text="캐릭터를 불러오는 중..." />;
   }
 
   if (characterError || missionError) {
     return <ErrorBoundary error={characterError || missionError} />;
+  }
+
+  // 미션 로딩 중이면 미션 부분만 로딩 표시
+  if (missionLoading) {
+    return (
+      <ScrollView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.greeting}>안녕하세요, {user?.nickname}님!</Text>
+        </View>
+        
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>나의 캐릭터</Text>
+          </View>
+          {representativeCharacter ? (
+            <CharacterCard character={representativeCharacter} />
+          ) : (
+            <View style={styles.emptyCharacterCard}>
+              <Text style={styles.emptyCharacterText}>캐릭터를 불러올 수 없습니다.</Text>
+            </View>
+          )}
+        </View>
+
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>추천 미션</Text>
+          </View>
+          <Loading text="미션을 불러오는 중..." />
+        </View>
+      </ScrollView>
+    );
   }
 
   return (
@@ -60,15 +109,27 @@ const HomeScreen = () => {
         </Text>
         
         {/* 메인 캐릭터 표시 */}
-        {representativeCharacter && (
-          <View style={styles.characterSection}>
-            <Text style={styles.sectionTitle}>🌱 나의 캐릭터</Text>
+        <View style={styles.characterSection}>
+          <Text style={styles.sectionTitle}>🌱 나의 캐릭터</Text>
+          {characterLoading ? (
+            <Card style={styles.emptyCharacterCard}>
+              <Text style={styles.emptyCharacterText}>
+                캐릭터를 불러오는 중...
+              </Text>
+            </Card>
+          ) : representativeCharacter ? (
             <CharacterCard 
               character={representativeCharacter}
               style={styles.characterCard}
             />
-          </View>
-        )}
+          ) : (
+            <Card style={styles.emptyCharacterCard}>
+              <Text style={styles.emptyCharacterText}>
+                캐릭터를 불러올 수 없습니다.
+              </Text>
+            </Card>
+          )}
+        </View>
         
         {/* 추천 미션 */}
         <View style={styles.missionSection}>
@@ -146,6 +207,15 @@ const styles = StyleSheet.create({
   },
   characterCard: {
     marginBottom: spacing[4],
+  },
+  emptyCharacterCard: {
+    padding: spacing[6],
+    alignItems: 'center',
+  },
+  emptyCharacterText: {
+    fontSize: typography.fontSize.base,
+    color: colors.text.secondary,
+    textAlign: 'center',
   },
   missionCard: {
     marginBottom: spacing[3],

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getData, getStorageKeys, autoLevelupCharacter, setData } from '../services';
 import { useUser } from '../contexts/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useCharacter = () => {
   const { currentNickname } = useUser();
@@ -39,23 +40,51 @@ export const useCharacter = () => {
         await setData(storageKeys.CHARACTERS, updatedCharacters);
       }
 
+      // 대표 캐릭터 로드
+      let representativeCategory = 'self_management'; // 기본값
+      try {
+        const storedCategory = await AsyncStorage.getItem(storageKeys.REPRESENTATIVE_CHARACTER);
+        if (storedCategory) {
+          representativeCategory = storedCategory; // JSON.parse 제거 - 문자열이므로
+        }
+      } catch (error) {
+        console.log('대표 캐릭터 설정 로드 실패, 기본값 사용:', error);
+      }
+      
+      const representativeChar = sortedCharacters.find(char => 
+        char.category_id === representativeCategory
+      );
+      
+      console.log('useCharacter - representativeCategory:', representativeCategory);
+      console.log('useCharacter - sortedCharacters:', sortedCharacters);
+      console.log('useCharacter - representativeChar:', representativeChar);
+      console.log('useCharacter - charactersData length:', charactersData.length);
+      console.log('useCharacter - updatedCharacters length:', updatedCharacters.length);
+      
+      // 캐릭터와 대표 캐릭터를 동시에 설정
       setCharacters(sortedCharacters);
       
-      // 대표 캐릭터 로드
-      const representativeCategory = await getData(storageKeys.REPRESENTATIVE_CHARACTER);
-      const representativeChar = sortedCharacters.find(char => 
-        char.category_id === representativeCategory || char.category_id === 'self_management'
-      );
-      setRepresentativeCharacter(representativeChar || sortedCharacters[0]);
+      // 대표 캐릭터 설정 (안전한 fallback)
+      if (representativeChar) {
+        setRepresentativeCharacter(representativeChar);
+      } else if (sortedCharacters.length > 0) {
+        // 자기관리 캐릭터를 찾지 못하면 첫 번째 캐릭터 사용
+        setRepresentativeCharacter(sortedCharacters[0]);
+      } else {
+        // 캐릭터가 아예 없으면 null
+        setRepresentativeCharacter(null);
+      }
       
       // 선택된 캐릭터가 없으면 첫 번째 캐릭터 선택
       if (sortedCharacters.length > 0 && !selectedCharacter) {
         setSelectedCharacter(sortedCharacters[0]);
       }
+      
+      // 모든 설정이 완료된 후 로딩 종료
+      setLoading(false);
     } catch (loadError) {
       console.error('캐릭터 로드 실패:', loadError);
       setError(loadError.message);
-    } finally {
       setLoading(false);
     }
   }, [selectedCharacter, currentNickname]);
