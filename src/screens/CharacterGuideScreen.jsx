@@ -105,7 +105,6 @@ const CharacterGuideScreen = () => {
   return (
     <View style={[styles.container, { backgroundColor: colors.background.secondary }]}>
       <View style={[styles.header, { backgroundColor: colors.background.primary, borderBottomColor: colors.border.light }]}>
-        <Text style={[styles.title, { color: colors.text.primary }]}>📚 캐릭터 도감</Text>
       </View>
       
       <ScrollView style={styles.content}>
