@@ -97,9 +97,6 @@ export const migrateUserData = async (nickname) => {
 // 사용자 데이터 초기화
 export const initializeUserData = async (userId, nickname) => {
   try {
-    // 유저가 처음 닉네임을 입력한 시점
-    const userCreatedAt = new Date().toISOString();
-    
     // 미션 템플릿에서 초기 미션 생성
     const storageKeys = getStorageKeys(nickname);
     
@@ -115,8 +112,7 @@ export const initializeUserData = async (userId, nickname) => {
       category: template.category_id,
       difficulty: template.difficulty,
       experience: template.experience,
-      completed: false,
-      created_at: userCreatedAt
+      completed: false
     }));
     await setData(storageKeys.MISSIONS, missions);
     
@@ -139,9 +135,7 @@ export const initializeUserData = async (userId, nickname) => {
         max_experience: 1000,
         total_experience: 0,
         unlocked: true,
-        unlocked_date: userCreatedAt,
-        category_id: 'general',
-        created_at: userCreatedAt
+        category_id: 'general'
       };
       await setData(storageKeys.CHARACTERS, [initialCharacter]);
     }
