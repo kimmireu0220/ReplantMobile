@@ -47,8 +47,6 @@ export const UserProvider = ({ children }) => {
   // 사용자 로그인 (인증 없이 닉네임만으로)
   const login = async (nickname) => {
     try {
-      console.log('로그인 시작:', nickname);
-      
       // 사용자 상태 업데이트
       const userId = `user_${Date.now()}`;
       setUser({ 
@@ -59,8 +57,6 @@ export const UserProvider = ({ children }) => {
       
       // 미션 데이터 초기화
       await initializeUserData(userId, nickname);
-      
-      console.log('로그인 성공:', nickname);
       return true;
     } catch (error) {
       console.error('로그인 실패:', error);

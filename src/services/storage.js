@@ -98,7 +98,6 @@ export const clearDeviceBasedData = async () => {
       await AsyncStorage.removeItem(key);
     }
     
-    console.log('기존 기기별 데이터 삭제 완료');
   } catch (error) {
     console.error('기기별 데이터 삭제 실패:', error);
   }

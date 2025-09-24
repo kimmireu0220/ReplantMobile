@@ -96,10 +96,8 @@ export const migrateUserData = async (nickname) => {
 // 사용자 데이터 초기화
 export const initializeUserData = async (userId, nickname) => {
   try {
-    console.log('initializeUserData 시작:', { userId, nickname });
     // 미션 템플릿에서 초기 미션 생성
     const storageKeys = getStorageKeys(nickname);
-    console.log('storageKeys:', storageKeys);
     
     // 항상 JSON 파일에서 최신 템플릿 로드
     const missionTemplates = require('../data/missionTemplates.json');
@@ -166,7 +164,6 @@ export const initializeUserData = async (userId, nickname) => {
         }
       ];
       await setData(storageKeys.CHARACTERS, initialCharacters);
-      console.log('캐릭터 생성 완료:', initialCharacters.length, '개');
     }
     
     // 다이어리는 빈 배열로 시작
@@ -174,9 +171,6 @@ export const initializeUserData = async (userId, nickname) => {
     
     // 대표 캐릭터 설정 (초기에는 자기관리 캐릭터)
     await setData(storageKeys.REPRESENTATIVE_CHARACTER, 'self_management');
-    console.log('대표 캐릭터 설정 완료: self_management');
-    
-    console.log('initializeUserData 완료');
     return {
       success: true,
       message: '사용자 데이터가 초기화되었습니다.'

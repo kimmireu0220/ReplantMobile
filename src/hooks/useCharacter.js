@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getData, getStorageKeys, autoLevelupCharacter, setData } from '../services';
 import { useUser } from '../contexts/UserContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useCharacter = () => {
   const { currentNickname } = useUser();
@@ -43,23 +42,17 @@ export const useCharacter = () => {
       // 대표 캐릭터 로드
       let representativeCategory = 'self_management'; // 기본값
       try {
-        const storedCategory = await AsyncStorage.getItem(storageKeys.REPRESENTATIVE_CHARACTER);
+        const storedCategory = await getData(storageKeys.REPRESENTATIVE_CHARACTER);
         if (storedCategory) {
           representativeCategory = storedCategory; // JSON.parse 제거 - 문자열이므로
         }
       } catch (error) {
-        console.log('대표 캐릭터 설정 로드 실패, 기본값 사용:', error);
       }
       
       const representativeChar = sortedCharacters.find(char => 
         char.category_id === representativeCategory
       );
       
-      console.log('useCharacter - representativeCategory:', representativeCategory);
-      console.log('useCharacter - sortedCharacters:', sortedCharacters);
-      console.log('useCharacter - representativeChar:', representativeChar);
-      console.log('useCharacter - charactersData length:', charactersData.length);
-      console.log('useCharacter - updatedCharacters length:', updatedCharacters.length);
       
       // 캐릭터와 대표 캐릭터를 동시에 설정
       setCharacters(sortedCharacters);

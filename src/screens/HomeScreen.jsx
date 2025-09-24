@@ -24,7 +24,6 @@ const HomeScreen = () => {
       const result = await completeMissionWithPhoto(missionId, null);
       if (result.success) {
         // 성공 시 추가 처리 (예: 토스트 메시지)
-        console.log('미션 완료:', result);
       }
     } catch (error) {
       console.error('미션 완료 실패:', error);
@@ -36,7 +35,6 @@ const HomeScreen = () => {
     try {
       const result = await uncompleteMission(missionId);
       if (result.success) {
-        console.log('미션 완료 취소:', result);
       }
     } catch (error) {
       console.error('미션 완료 취소 실패:', error);
