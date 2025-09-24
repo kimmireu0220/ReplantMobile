@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useUser } from '../contexts/UserContext';
 import { useCharacter } from '../hooks/useCharacter';
 import { useMission } from '../hooks/useMission';
@@ -12,12 +12,6 @@ const HomeScreen = () => {
   const { representativeCharacter, loading: characterLoading, error: characterError, addExperienceByCategory } = useCharacter();
   const { missions, loading: missionLoading, error: missionError, completeMissionWithPhoto, uncompleteMission } = useMission(addExperienceByCategory);
 
-  // 디버깅 로그
-  console.log('HomeScreen 렌더링:', {
-    characterLoading,
-    representativeCharacter: representativeCharacter ? '있음' : '없음',
-    characterError
-  });
 
   // 추천 미션 (미완료된 미션 중 최대 3개)
   const recommendedMissions = missions
@@ -49,15 +43,6 @@ const HomeScreen = () => {
     }
   };
 
-  // 디버깅을 위한 로그
-  console.log('HomeScreen - representativeCharacter:', representativeCharacter);
-  console.log('HomeScreen - characterLoading:', characterLoading);
-  console.log('HomeScreen - characterError:', characterError);
-  
-  // Alert로도 확인 (첫 번째 로드 시에만)
-  if (!characterLoading && !representativeCharacter) {
-    Alert.alert('디버깅', `캐릭터 로딩: ${characterLoading}, 대표 캐릭터: ${representativeCharacter ? '있음' : '없음'}, 에러: ${characterError || '없음'}`);
-  }
 
   // 캐릭터 로딩 중이면 로딩 화면 표시
   if (characterLoading) {
