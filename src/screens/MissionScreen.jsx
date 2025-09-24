@@ -150,9 +150,9 @@ const MissionScreen = () => {
               </Text>
             </Card>
           ) : (
-            filteredMissions.map((mission) => (
+            filteredMissions.map((mission, index) => (
               <MissionCard
-                key={mission.mission_id}
+                key={`${mission.mission_id}-${mission.id || index}`}
                 mission={mission}
                 onComplete={handleMissionComplete}
                 onUncomplete={handleMissionUncomplete}

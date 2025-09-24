@@ -18,7 +18,13 @@ export const useMission = (addExperienceByCategory) => {
 
       const storageKeys = getStorageKeys(currentNickname);
       const missionsData = await getData(storageKeys.MISSIONS);
-      const sortedMissions = missionsData.sort((a, b) => 
+      
+      // 중복 제거 (mission_id 기준)
+      const uniqueMissions = missionsData.filter((mission, index, self) => 
+        index === self.findIndex(m => m.mission_id === mission.mission_id)
+      );
+      
+      const sortedMissions = uniqueMissions.sort((a, b) => 
         a.title.localeCompare(b.title)
       );
 
