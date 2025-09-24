@@ -89,7 +89,7 @@ const getErrorType = (error, context = '') => {
 /**
  * 에러 로깅 함수 (통합 로거 사용)
  */
-export const logError = (error, context = '') => {
+export const logErrorHandler = (error, context = '') => {
   const errorType = getErrorType(error, context);
   
   logError(`Error: ${errorType}`, error, { context, errorType });
@@ -135,7 +135,7 @@ export const handleAsyncError = async (asyncFunction, context = '') => {
   try {
     return await asyncFunction();
   } catch (error) {
-    logError(error, context);
+    logErrorHandler(error, context);
     showErrorAlert(error, context);
     throw error;
   }
@@ -149,7 +149,7 @@ export const executeWithErrorHandling = async (asyncFunction, context = '') => {
     const result = await asyncFunction();
     return { success: true, data: result };
   } catch (error) {
-    logError(error, context);
+    logErrorHandler(error, context);
     return { success: false, error: error.message };
   }
 };
