@@ -1,9 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import { TABLES } from '../services/supabase';
-import { useSupabase } from '../contexts/SupabaseContext';
+import { getData, addData, updateData, deleteData, STORAGE_KEYS } from '../services';
 
 export const useDiary = () => {
-  const { supabase } = useSupabase();
   const [diaries, setDiaries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,21 +12,19 @@ export const useDiary = () => {
       setLoading(true);
       setError(null);
 
-      const { data, error: queryError } = await supabase
-        .from(TABLES.DIARIES)
-        .select('*')
-        .order('created_at', { ascending: false });
+      const diariesData = await getData(STORAGE_KEYS.DIARIES);
+      const sortedDiaries = diariesData.sort((a, b) => 
+        new Date(b.created_at) - new Date(a.created_at)
+      );
 
-      if (queryError) throw queryError;
-
-      setDiaries(data || []);
+      setDiaries(sortedDiaries);
     } catch (loadError) {
       console.error('다이어리 로드 실패:', loadError);
       setError(loadError.message);
     } finally {
       setLoading(false);
     }
-  }, [supabase]);
+  }, []);
 
   // 초기 로드
   useEffect(() => {
@@ -40,77 +36,59 @@ export const useDiary = () => {
     try {
       setLoading(true);
 
-      const { data, error: queryError } = await supabase
-        .from(TABLES.DIARIES)
-        .insert({
-          date: diaryData.date,
-          emotion: diaryData.emotion,
-          content: diaryData.content,
-          created_at: new Date().toISOString()
-        })
-        .select()
-        .single();
-
-      if (queryError) throw queryError;
+      const newDiary = await addData(STORAGE_KEYS.DIARIES, {
+        date: diaryData.date,
+        emotion: diaryData.emotion,
+        content: diaryData.content,
+        created_at: new Date().toISOString()
+      });
 
       // 로컬 상태 업데이트
-      setDiaries(prev => [data, ...prev]);
+      setDiaries(prev => [newDiary, ...prev]);
 
-      return data;
+      return newDiary;
     } catch (saveError) {
       console.error('다이어리 저장 실패:', saveError);
       throw saveError;
     } finally {
       setLoading(false);
     }
-  }, [supabase]);
+  }, []);
 
   // 다이어리 수정
   const updateDiary = useCallback(async (diaryId, diaryData) => {
     try {
       setLoading(true);
 
-      const { data, error: queryError } = await supabase
-        .from(TABLES.DIARIES)
-        .update({
-          date: diaryData.date,
-          emotion: diaryData.emotion,
-          content: diaryData.content,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', diaryId)
-        .select()
-        .single();
-
-      if (queryError) throw queryError;
+      const updatedDiary = await updateData(STORAGE_KEYS.DIARIES, diaryId, {
+        date: diaryData.date,
+        emotion: diaryData.emotion,
+        content: diaryData.content,
+        updated_at: new Date().toISOString()
+      });
 
       // 로컬 상태 업데이트
       setDiaries(prev => 
         prev.map(diary => 
-          diary.id === diaryId ? data : diary
+          diary.id === diaryId ? updatedDiary : diary
         )
       );
 
-      return data;
+      return updatedDiary;
     } catch (updateError) {
       console.error('다이어리 수정 실패:', updateError);
       throw updateError;
     } finally {
       setLoading(false);
     }
-  }, [supabase]);
+  }, []);
 
   // 다이어리 삭제
   const deleteDiary = useCallback(async (diaryId) => {
     try {
       setLoading(true);
 
-      const { error: deleteError } = await supabase
-        .from(TABLES.DIARIES)
-        .delete()
-        .eq('id', diaryId);
-
-      if (deleteError) throw deleteError;
+      await deleteData(STORAGE_KEYS.DIARIES, diaryId);
 
       // 로컬 상태 업데이트
       setDiaries(prev => prev.filter(diary => diary.id !== diaryId));
@@ -122,7 +100,7 @@ export const useDiary = () => {
     } finally {
       setLoading(false);
     }
-  }, [supabase]);
+  }, []);
 
   return {
     diaries,
