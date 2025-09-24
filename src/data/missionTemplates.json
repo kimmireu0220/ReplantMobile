@@ -7,7 +7,6 @@
     "emoji": "🧘",
     "difficulty": "medium",
     "experience": 70,
-    "created_at": null,
     "category_id": "self_management"
   },
   {
@@ -18,7 +17,6 @@
     "emoji": "😴",
     "difficulty": "easy",
     "experience": 45,
-    "created_at": null,
     "category_id": "self_management"
   },
   {
@@ -29,7 +27,6 @@
     "emoji": "🥗",
     "difficulty": "easy",
     "experience": 35,
-    "created_at": null,
     "category_id": "self_management"
   },
   {
@@ -40,7 +37,6 @@
     "emoji": "🪴",
     "difficulty": "easy",
     "experience": 40,
-    "created_at": null,
     "category_id": "self_management"
   },
   {
@@ -51,7 +47,6 @@
     "emoji": "🧘",
     "difficulty": "easy",
     "experience": 40,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -62,7 +57,6 @@
     "emoji": "🚶‍♀️",
     "difficulty": "easy",
     "experience": 60,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -73,7 +67,6 @@
     "emoji": "💪",
     "difficulty": "medium",
     "experience": 65,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -84,7 +77,6 @@
     "emoji": "🧘‍♀️",
     "difficulty": "medium",
     "experience": 55,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -95,7 +87,6 @@
     "emoji": "⏰",
     "difficulty": "medium",
     "experience": 500,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -106,7 +97,6 @@
     "emoji": "🚶",
     "difficulty": "medium",
     "experience": 60,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -117,7 +107,6 @@
     "emoji": "🧍",
     "difficulty": "hard",
     "experience": 75,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -128,7 +117,6 @@
     "emoji": "🏋️",
     "difficulty": "medium",
     "experience": 65,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -139,7 +127,6 @@
     "emoji": "🚴",
     "difficulty": "easy",
     "experience": 45,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -150,7 +137,6 @@
     "emoji": "🧘‍♂️",
     "difficulty": "medium",
     "experience": 55,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -161,7 +147,6 @@
     "emoji": "💪",
     "difficulty": "easy",
     "experience": 50,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -172,7 +157,6 @@
     "emoji": "🤸",
     "difficulty": "medium",
     "experience": 55,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -183,7 +167,6 @@
     "emoji": "🏃",
     "difficulty": "medium",
     "experience": 60,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -194,7 +177,6 @@
     "emoji": "💃",
     "difficulty": "easy",
     "experience": 45,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -205,7 +187,6 @@
     "emoji": "💧",
     "difficulty": "easy",
     "experience": 40,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -216,7 +197,6 @@
     "emoji": "🌅",
     "difficulty": "easy",
     "experience": 45,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -227,7 +207,6 @@
     "emoji": "🌆",
     "difficulty": "easy",
     "experience": 50,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -238,7 +217,6 @@
     "emoji": "🏋️‍♀️",
     "difficulty": "medium",
     "experience": 70,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -249,7 +227,6 @@
     "emoji": "🏊",
     "difficulty": "hard",
     "experience": 80,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -260,7 +237,6 @@
     "emoji": "🥾",
     "difficulty": "hard",
     "experience": 100,
-    "created_at": null,
     "category_id": "communication"
   },
   {
@@ -271,7 +247,6 @@
     "emoji": "📚",
     "difficulty": "easy",
     "experience": 50,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -282,7 +257,6 @@
     "emoji": "📰",
     "difficulty": "easy",
     "experience": 40,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -293,7 +267,6 @@
     "emoji": "📖",
     "difficulty": "medium",
     "experience": 45,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -304,7 +277,6 @@
     "emoji": "📱",
     "difficulty": "medium",
     "experience": 55,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -315,7 +287,6 @@
     "emoji": "📚",
     "difficulty": "hard",
     "experience": 500,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -326,7 +297,6 @@
     "emoji": "🎵",
     "difficulty": "easy",
     "experience": 35,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -337,7 +307,6 @@
     "emoji": "✏️",
     "difficulty": "medium",
     "experience": 55,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -348,7 +317,6 @@
     "emoji": "📝",
     "difficulty": "medium",
     "experience": 60,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -359,7 +327,6 @@
     "emoji": "👨‍🍳",
     "difficulty": "hard",
     "experience": 500,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -370,7 +337,6 @@
     "emoji": "📸",
     "difficulty": "medium",
     "experience": 65,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -381,7 +347,6 @@
     "emoji": "💬",
     "difficulty": "easy",
     "experience": 40,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -392,7 +357,6 @@
     "emoji": "👨‍👩‍👧‍👦",
     "difficulty": "easy",
     "experience": 45,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -403,7 +367,6 @@
     "emoji": "🌐",
     "difficulty": "medium",
     "experience": 55,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -414,7 +377,6 @@
     "emoji": "🤝",
     "difficulty": "hard",
     "experience": 75,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -425,7 +387,6 @@
     "emoji": "👥",
     "difficulty": "hard",
     "experience": 500,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -436,7 +397,6 @@
     "emoji": "📚",
     "difficulty": "medium",
     "experience": 55,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -447,7 +407,6 @@
     "emoji": "📖",
     "difficulty": "medium",
     "experience": 60,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -458,7 +417,6 @@
     "emoji": "🔬",
     "difficulty": "medium",
     "experience": 50,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -469,7 +427,6 @@
     "emoji": "💹",
     "difficulty": "medium",
     "experience": 55,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -480,7 +437,6 @@
     "emoji": "🧪",
     "difficulty": "hard",
     "experience": 75,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -491,7 +447,6 @@
     "emoji": "🎸",
     "difficulty": "medium",
     "experience": 55,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -502,7 +457,6 @@
     "emoji": "📝",
     "difficulty": "medium",
     "experience": 60,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -513,7 +467,6 @@
     "emoji": "🎨",
     "difficulty": "easy",
     "experience": 40,
-    "created_at": null,
     "category_id": "career"
   },
   {
@@ -524,7 +477,6 @@
     "emoji": "✒️",
     "difficulty": "medium",
     "experience": 55,
-    "created_at": null,
     "category_id": "career"
   }
 ]

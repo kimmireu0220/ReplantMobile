@@ -111,39 +111,20 @@ export const initializeUserData = async (userId, nickname) => {
       await setData(storageKeys.MISSION_TEMPLATES, missionTemplatesData);
       missionTemplates = missionTemplatesData;
     }
-    if (missionTemplates.length === 0) {
-      // 템플릿이 없으면 기본 미션 생성
-      const defaultMissions = [
-        {
-          id: `mission_${Date.now()}_1`,
-          mission_id: 'sm1',
-          title: '10분 명상하기',
-          description: '마음을 진정시키는 명상을 해보세요',
-          emoji: '🧘',
-          category: 'self_management',
-          difficulty: 'medium',
-          experience: 70,
-          completed: false,
-          created_at: userCreatedAt
-        }
-      ];
-      await setData(storageKeys.MISSIONS, defaultMissions);
-    } else {
-      // 템플릿에서 미션 생성 (전체 60개 모두 선택)
-      const missions = missionTemplates.map(template => ({
-        id: `mission_${Date.now()}_${template.id}`,
-        mission_id: template.mission_id,
-        title: template.title,
-        description: template.description,
-        emoji: template.emoji,
-        category: template.category_id,
-        difficulty: template.difficulty,
-        experience: template.experience,
-        completed: false,
-        created_at: userCreatedAt
-      }));
-      await setData(storageKeys.MISSIONS, missions);
-    }
+    // 템플릿에서 미션 생성 (전체 템플릿 데이터 사용)
+    const missions = missionTemplates.map(template => ({
+      id: `mission_${Date.now()}_${template.id}`,
+      mission_id: template.mission_id,
+      title: template.title,
+      description: template.description,
+      emoji: template.emoji,
+      category: template.category_id,
+      difficulty: template.difficulty,
+      experience: template.experience,
+      completed: false,
+      created_at: userCreatedAt
+    }));
+    await setData(storageKeys.MISSIONS, missions);
     
     // 캐릭터 템플릿에서 초기 캐릭터 생성
     let characterTemplates = await getData(storageKeys.CHARACTER_TEMPLATES);
