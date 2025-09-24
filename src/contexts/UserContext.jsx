@@ -1,9 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { 
-  getCurrentUserNickname, 
-  logoutUser 
-} from '../services/supabase';
 
 const UserContext = createContext();
 
@@ -63,7 +59,8 @@ export const UserProvider = ({ children }) => {
   // 사용자 로그아웃
   const logout = async () => {
     try {
-      await logoutUser();
+      // AsyncStorage에서 닉네임 제거
+      await AsyncStorage.removeItem('userNickname');
       setUser(null);
     } catch (error) {
       console.error('로그아웃 실패:', error);

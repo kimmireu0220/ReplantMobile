@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
 import { useUser } from '../contexts/UserContext';
-import { validateNickname } from '../services/supabase';
 import { Button, Input } from '../components/ui';
 import { colors, spacing, typography } from '../utils/designTokens';
 
@@ -12,9 +11,18 @@ const NicknameScreen = ({ onNavigate }) => {
 
   const handleSubmit = async () => {
     // 닉네임 유효성 검사
-    const validation = validateNickname(nickname);
-    if (!validation.isValid) {
-      Alert.alert('오류', validation.message);
+    if (!nickname.trim()) {
+      Alert.alert('오류', '닉네임을 입력해주세요.');
+      return;
+    }
+    
+    if (nickname.length < 2) {
+      Alert.alert('오류', '닉네임은 2글자 이상 입력해주세요.');
+      return;
+    }
+    
+    if (nickname.length > 20) {
+      Alert.alert('오류', '닉네임은 20글자 이하로 입력해주세요.');
       return;
     }
 
