@@ -16,16 +16,16 @@ const StartScreen = ({ onNavigate }) => {
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>🌱 Replant</Text>
-        <Text style={styles.subtitle}>감정 회복을 위한 여정</Text>
+        <Text style={styles.subtitle}>사회로의 첫 걸음</Text>
         <Text style={styles.description}>
-          매일의 감정을 기록하고, 미션을 완료하며{'\n'}
-          캐릭터와 함께 성장해보세요
+          작은 변화로 큰 성장을 만들어보세요{'\n'}
+          외출부터 취업까지, 함께 성장해요
         </Text>
       </View>
       
       <View style={styles.buttonContainer}>
         <Button
-          title="시작하기"
+          title="새로운 시작하기"
           onPress={handleGetStarted}
           size="lg"
           style={styles.button}
