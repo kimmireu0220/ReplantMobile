@@ -1,9 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import { TABLES } from '../services/supabase';
-import { useSupabase } from '../contexts/SupabaseContext';
+import { getData, STORAGE_KEYS, autoLevelupCharacter } from '../services';
 
 export const useCharacter = () => {
-  const { supabase } = useSupabase();
   const [characters, setCharacters] = useState([]);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,18 +13,14 @@ export const useCharacter = () => {
       setLoading(true);
       setError(null);
 
-      const { data, error: queryError } = await supabase
-        .from(TABLES.CHARACTERS)
-        .select('*')
-        .order('level', { ascending: true });
+      const charactersData = await getData(STORAGE_KEYS.CHARACTERS);
+      const sortedCharacters = charactersData.sort((a, b) => a.level - b.level);
 
-      if (queryError) throw queryError;
-
-      setCharacters(data || []);
+      setCharacters(sortedCharacters);
       
       // 선택된 캐릭터가 없으면 첫 번째 캐릭터 선택
-      if (data && data.length > 0 && !selectedCharacter) {
-        setSelectedCharacter(data[0]);
+      if (sortedCharacters.length > 0 && !selectedCharacter) {
+        setSelectedCharacter(sortedCharacters[0]);
       }
     } catch (loadError) {
       console.error('캐릭터 로드 실패:', loadError);
@@ -34,7 +28,7 @@ export const useCharacter = () => {
     } finally {
       setLoading(false);
     }
-  }, [supabase, selectedCharacter]);
+  }, [selectedCharacter]);
 
   // 초기 로드
   useEffect(() => {
@@ -46,43 +40,33 @@ export const useCharacter = () => {
     try {
       // 해당 카테고리의 캐릭터 찾기
       const character = characters.find(char => char.category_id === categoryId);
-      if (!character) return;
+      if (!character) return { success: false, error: '캐릭터를 찾을 수 없습니다.' };
 
-      // 경험치 추가
-      const newExperience = (character.experience || 0) + experience;
-      const newLevel = Math.floor(newExperience / 100) + 1; // 100 경험치당 1레벨
+      // autoLevelupCharacter 함수 사용
+      const result = await autoLevelupCharacter(character.id, experience);
+      
+      if (result.success) {
+        // 로컬 상태 업데이트
+        setCharacters(prev => 
+          prev.map(char => 
+            char.id === character.id 
+              ? result.character
+              : char
+          )
+        );
 
-      // 캐릭터 업데이트
-      const { error: updateError } = await supabase
-        .from(TABLES.CHARACTERS)
-        .update({ 
-          experience: newExperience,
-          level: newLevel 
-        })
-        .eq('id', character.id);
+        // 선택된 캐릭터도 업데이트
+        if (selectedCharacter && selectedCharacter.id === character.id) {
+          setSelectedCharacter(result.character);
+        }
+      }
 
-      if (updateError) throw updateError;
-
-      // 로컬 상태 업데이트
-      setCharacters(prev => 
-        prev.map(char => 
-          char.id === character.id 
-            ? { ...char, experience: newExperience, level: newLevel }
-            : char
-        )
-      );
-
-      return { 
-        success: true, 
-        newLevel, 
-        experience: newExperience,
-        levelUp: newLevel > character.level 
-      };
+      return result;
     } catch (expError) {
       console.error('경험치 추가 실패:', expError);
       return { success: false, error: expError.message };
     }
-  }, [characters, supabase]);
+  }, [characters, selectedCharacter]);
 
   // 캐릭터 선택
   const selectCharacter = useCallback((character) => {
