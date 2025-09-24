@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getData, STORAGE_KEYS, autoLevelupCharacter } from '../services';
+import { getData, getStorageKeys, autoLevelupCharacter } from '../services';
+import { useUser } from '../contexts/UserContext';
 
 export const useCharacter = () => {
+  const { currentNickname } = useUser();
   const [characters, setCharacters] = useState([]);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -9,11 +11,14 @@ export const useCharacter = () => {
 
   // 캐릭터 데이터 로드
   const loadCharacters = useCallback(async () => {
+    if (!currentNickname) return;
+    
     try {
       setLoading(true);
       setError(null);
 
-      const charactersData = await getData(STORAGE_KEYS.CHARACTERS);
+      const storageKeys = getStorageKeys(currentNickname);
+      const charactersData = await getData(storageKeys.CHARACTERS);
       const sortedCharacters = charactersData.sort((a, b) => a.level - b.level);
 
       setCharacters(sortedCharacters);
@@ -28,7 +33,7 @@ export const useCharacter = () => {
     } finally {
       setLoading(false);
     }
-  }, [selectedCharacter]);
+  }, [selectedCharacter, currentNickname]);
 
   // 초기 로드
   useEffect(() => {
@@ -43,7 +48,7 @@ export const useCharacter = () => {
       if (!character) return { success: false, error: '캐릭터를 찾을 수 없습니다.' };
 
       // autoLevelupCharacter 함수 사용
-      const result = await autoLevelupCharacter(character.id, experience);
+      const result = await autoLevelupCharacter(character.id, experience, currentNickname);
       
       if (result.success) {
         // 로컬 상태 업데이트

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getStorageKeys, initializeUserData, clearDeviceBasedData } from '../services';
 
 const UserContext = createContext();
 
@@ -13,6 +14,7 @@ export const useUser = () => {
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [currentNickname, setCurrentNickname] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // 사용자 정보 로드
@@ -22,13 +24,17 @@ export const UserProvider = ({ children }) => {
 
   const loadUser = async () => {
     try {
-      const nickname = await AsyncStorage.getItem('userNickname');
+      // 기존 기기별 데이터에서 닉네임 찾기
+      const deviceId = await getDeviceId();
+      const oldNicknameKey = `userNickname_${deviceId}`;
+      const nickname = await AsyncStorage.getItem(oldNicknameKey);
       
       if (nickname) {
         setUser({ 
           nickname, 
           id: `user_${Date.now()}` 
         });
+        setCurrentNickname(nickname);
       }
     } catch (error) {
       console.error('사용자 정보 로드 실패:', error);
@@ -40,14 +46,23 @@ export const UserProvider = ({ children }) => {
   // 사용자 로그인 (인증 없이 닉네임만으로)
   const login = async (nickname) => {
     try {
+      // 기존 기기별 데이터 삭제
+      await clearDeviceBasedData();
+      
       // 닉네임을 로컬 스토리지에 저장
-      await AsyncStorage.setItem('userNickname', nickname);
+      const storageKeys = getStorageKeys(nickname);
+      await AsyncStorage.setItem(storageKeys.USER_NICKNAME, nickname);
+      
+      // 사용자 데이터 초기화 (미션, 캐릭터 생성)
+      const userId = `user_${Date.now()}`;
+      await initializeUserData(userId, nickname);
       
       // 사용자 상태 업데이트
       setUser({ 
         nickname, 
-        id: `user_${Date.now()}` // 임시 ID 생성
+        id: userId
       });
+      setCurrentNickname(nickname);
       
       return true;
     } catch (error) {
@@ -60,8 +75,12 @@ export const UserProvider = ({ children }) => {
   const logout = async () => {
     try {
       // AsyncStorage에서 닉네임 제거
-      await AsyncStorage.removeItem('userNickname');
+      if (currentNickname) {
+        const storageKeys = getStorageKeys(currentNickname);
+        await AsyncStorage.removeItem(storageKeys.USER_NICKNAME);
+      }
       setUser(null);
+      setCurrentNickname(null);
     } catch (error) {
       console.error('로그아웃 실패:', error);
     }
@@ -70,13 +89,16 @@ export const UserProvider = ({ children }) => {
   // 사용자 정보 새로고침
   const refreshUser = async () => {
     try {
-      const nickname = await AsyncStorage.getItem('userNickname');
-      
-      if (nickname) {
-        setUser({ 
-          nickname, 
-          id: `user_${Date.now()}` 
-        });
+      if (currentNickname) {
+        const storageKeys = getStorageKeys(currentNickname);
+        const nickname = await AsyncStorage.getItem(storageKeys.USER_NICKNAME);
+        
+        if (nickname) {
+          setUser({ 
+            nickname, 
+            id: `user_${Date.now()}` 
+          });
+        }
       }
     } catch (error) {
       console.error('사용자 정보 새로고침 실패:', error);
@@ -85,6 +107,7 @@ export const UserProvider = ({ children }) => {
 
   const value = {
     user,
+    currentNickname,
     isLoggedIn: !!user,
     login,
     logout,

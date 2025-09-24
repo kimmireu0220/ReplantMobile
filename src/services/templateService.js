@@ -1,13 +1,14 @@
-import { getData, setData, STORAGE_KEYS } from './storage';
+import { getData, setData, getStorageKeys } from './storage';
 
 // 미션 템플릿 로드
 export const loadMissionTemplates = async () => {
   try {
-    const missionTemplates = await getData(STORAGE_KEYS.MISSION_TEMPLATES);
+    const storageKeys = getStorageKeys('shared'); // 템플릿은 공유
+    const missionTemplates = await getData(storageKeys.MISSION_TEMPLATES);
     if (missionTemplates.length === 0) {
       // JSON 파일에서 로드
       const missionTemplatesData = require('../data/missionTemplates.json');
-      await setData(STORAGE_KEYS.MISSION_TEMPLATES, missionTemplatesData);
+      await setData(storageKeys.MISSION_TEMPLATES, missionTemplatesData);
       return missionTemplatesData;
     }
     return missionTemplates;
@@ -20,11 +21,12 @@ export const loadMissionTemplates = async () => {
 // 캐릭터 템플릿 로드
 export const loadCharacterTemplates = async () => {
   try {
-    const characterTemplates = await getData(STORAGE_KEYS.CHARACTER_TEMPLATES);
+    const storageKeys = getStorageKeys('shared'); // 템플릿은 공유
+    const characterTemplates = await getData(storageKeys.CHARACTER_TEMPLATES);
     if (characterTemplates.length === 0) {
       // JSON 파일에서 로드
       const characterTemplatesData = require('../data/characterTemplates.json');
-      await setData(STORAGE_KEYS.CHARACTER_TEMPLATES, characterTemplatesData);
+      await setData(storageKeys.CHARACTER_TEMPLATES, characterTemplatesData);
       return characterTemplatesData;
     }
     return characterTemplates;

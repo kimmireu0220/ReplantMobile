@@ -1,18 +1,23 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getData, addData, updateData, deleteData, STORAGE_KEYS } from '../services';
+import { getData, addData, updateData, deleteData, getStorageKeys } from '../services';
+import { useUser } from '../contexts/UserContext';
 
 export const useDiary = () => {
+  const { currentNickname } = useUser();
   const [diaries, setDiaries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // 다이어리 데이터 로드
   const loadDiaries = useCallback(async () => {
+    if (!currentNickname) return;
+    
     try {
       setLoading(true);
       setError(null);
 
-      const diariesData = await getData(STORAGE_KEYS.DIARIES);
+      const storageKeys = getStorageKeys(currentNickname);
+      const diariesData = await getData(storageKeys.DIARIES);
       const sortedDiaries = diariesData.sort((a, b) => 
         new Date(b.created_at) - new Date(a.created_at)
       );
@@ -24,7 +29,7 @@ export const useDiary = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [currentNickname]);
 
   // 초기 로드
   useEffect(() => {
@@ -36,7 +41,8 @@ export const useDiary = () => {
     try {
       setLoading(true);
 
-      const newDiary = await addData(STORAGE_KEYS.DIARIES, {
+      const storageKeys = getStorageKeys(currentNickname);
+      const newDiary = await addData(storageKeys.DIARIES, {
         date: diaryData.date,
         emotion: diaryData.emotion,
         content: diaryData.content,
@@ -53,14 +59,15 @@ export const useDiary = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [currentNickname]);
 
   // 다이어리 수정
   const updateDiary = useCallback(async (diaryId, diaryData) => {
     try {
       setLoading(true);
 
-      const updatedDiary = await updateData(STORAGE_KEYS.DIARIES, diaryId, {
+      const storageKeys = getStorageKeys(currentNickname);
+      const updatedDiary = await updateData(storageKeys.DIARIES, diaryId, {
         date: diaryData.date,
         emotion: diaryData.emotion,
         content: diaryData.content,
@@ -81,14 +88,15 @@ export const useDiary = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [currentNickname]);
 
   // 다이어리 삭제
   const deleteDiary = useCallback(async (diaryId) => {
     try {
       setLoading(true);
 
-      await deleteData(STORAGE_KEYS.DIARIES, diaryId);
+      const storageKeys = getStorageKeys(currentNickname);
+      await deleteData(storageKeys.DIARIES, diaryId);
 
       // 로컬 상태 업데이트
       setDiaries(prev => prev.filter(diary => diary.id !== diaryId));
@@ -100,7 +108,7 @@ export const useDiary = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [currentNickname]);
 
   return {
     diaries,

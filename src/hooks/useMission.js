@@ -1,18 +1,23 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getData, updateData, STORAGE_KEYS } from '../services';
+import { getData, updateData, getStorageKeys } from '../services';
+import { useUser } from '../contexts/UserContext';
 
 export const useMission = (addExperienceByCategory) => {
+  const { currentNickname } = useUser();
   const [missions, setMissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // 미션 데이터 로드
   const loadMissions = useCallback(async () => {
+    if (!currentNickname) return;
+    
     try {
       setLoading(true);
       setError(null);
 
-      const missionsData = await getData(STORAGE_KEYS.MISSIONS);
+      const storageKeys = getStorageKeys(currentNickname);
+      const missionsData = await getData(storageKeys.MISSIONS);
       const sortedMissions = missionsData.sort((a, b) => 
         new Date(b.created_at) - new Date(a.created_at)
       );
@@ -24,7 +29,7 @@ export const useMission = (addExperienceByCategory) => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [currentNickname]);
 
   // 초기 로드
   useEffect(() => {
@@ -47,7 +52,8 @@ export const useMission = (addExperienceByCategory) => {
         photo_url: photoUrl
       };
 
-      await updateData(STORAGE_KEYS.MISSIONS, mission.id, updatedMission);
+      const storageKeys = getStorageKeys(currentNickname);
+      await updateData(storageKeys.MISSIONS, mission.id, updatedMission);
 
       // 로컬 상태 업데이트
       setMissions(prev => 
@@ -92,7 +98,8 @@ export const useMission = (addExperienceByCategory) => {
         photo_url: null
       };
 
-      await updateData(STORAGE_KEYS.MISSIONS, mission.id, updatedMission);
+      const storageKeys = getStorageKeys(currentNickname);
+      await updateData(storageKeys.MISSIONS, mission.id, updatedMission);
 
       // 로컬 상태 업데이트
       setMissions(prev => 

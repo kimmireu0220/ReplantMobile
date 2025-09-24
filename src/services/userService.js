@@ -1,11 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { setData, STORAGE_KEYS } from './storage';
+import { getData, setData, getStorageKeys } from './storage';
 import { createCharacter } from './characterService';
 
 // 닉네임 중복 확인
 export const checkNicknameDuplicate = async (nickname) => {
   try {
-    const existingNickname = await AsyncStorage.getItem(STORAGE_KEYS.USER_NICKNAME);
+    const storageKeys = getStorageKeys(nickname);
+    const existingNickname = await AsyncStorage.getItem(storageKeys.USER_NICKNAME);
     return existingNickname === nickname;
   } catch (error) {
     console.error('닉네임 중복 확인 실패:', error);
@@ -23,7 +24,8 @@ export const createUserWithNickname = async (nickname, deviceId) => {
     }
     
     // 닉네임 저장
-    await AsyncStorage.setItem(STORAGE_KEYS.USER_NICKNAME, nickname);
+    const storageKeys = getStorageKeys(nickname);
+    await AsyncStorage.setItem(storageKeys.USER_NICKNAME, nickname);
     
     // 사용자 데이터 초기화
     const userId = `user_${Date.now()}`;
@@ -46,7 +48,8 @@ export const createUserWithNickname = async (nickname, deviceId) => {
 // 닉네임으로 사용자 조회
 export const getUserByNickname = async (nickname) => {
   try {
-    const storedNickname = await AsyncStorage.getItem(STORAGE_KEYS.USER_NICKNAME);
+    const storageKeys = getStorageKeys(nickname);
+    const storedNickname = await AsyncStorage.getItem(storageKeys.USER_NICKNAME);
     if (storedNickname === nickname) {
       return `user_${Date.now()}`; // 임시 사용자 ID
     }
@@ -58,10 +61,19 @@ export const getUserByNickname = async (nickname) => {
 };
 
 // 사용자 데이터 초기화
-export const initializeUserData = async (userId) => {
+export const initializeUserData = async (userId, nickname) => {
   try {
     // 미션 템플릿에서 초기 미션 생성
-    const missionTemplates = await getData(STORAGE_KEYS.MISSION_TEMPLATES);
+    const storageKeys = getStorageKeys(nickname);
+    
+    // 템플릿이 없으면 먼저 로드
+    let missionTemplates = await getData(storageKeys.MISSION_TEMPLATES);
+    if (missionTemplates.length === 0) {
+      // JSON 파일에서 템플릿 로드
+      const missionTemplatesData = require('../data/missionTemplates.json');
+      await setData(storageKeys.MISSION_TEMPLATES, missionTemplatesData);
+      missionTemplates = missionTemplatesData;
+    }
     if (missionTemplates.length === 0) {
       // 템플릿이 없으면 기본 미션 생성
       const defaultMissions = [
@@ -78,7 +90,7 @@ export const initializeUserData = async (userId) => {
           created_at: new Date().toISOString()
         }
       ];
-      await setData(STORAGE_KEYS.MISSIONS, defaultMissions);
+      await setData(storageKeys.MISSIONS, defaultMissions);
     } else {
       // 템플릿에서 미션 생성 (전체 60개 모두 선택)
       const missions = missionTemplates.map(template => ({
@@ -93,11 +105,17 @@ export const initializeUserData = async (userId) => {
         completed: false,
         created_at: new Date().toISOString()
       }));
-      await setData(STORAGE_KEYS.MISSIONS, missions);
+      await setData(storageKeys.MISSIONS, missions);
     }
     
     // 캐릭터 템플릿에서 초기 캐릭터 생성
-    const characterTemplates = await getData(STORAGE_KEYS.CHARACTER_TEMPLATES);
+    let characterTemplates = await getData(storageKeys.CHARACTER_TEMPLATES);
+    if (characterTemplates.length === 0) {
+      // JSON 파일에서 템플릿 로드
+      const characterTemplatesData = require('../data/characterTemplates.json');
+      await setData(storageKeys.CHARACTER_TEMPLATES, characterTemplatesData);
+      characterTemplates = characterTemplatesData;
+    }
     if (characterTemplates.length > 0) {
       const initialCharacter = {
         id: `character_${Date.now()}`,
@@ -113,11 +131,11 @@ export const initializeUserData = async (userId) => {
         category_id: 'general',
         created_at: new Date().toISOString()
       };
-      await setData(STORAGE_KEYS.CHARACTERS, [initialCharacter]);
+      await setData(storageKeys.CHARACTERS, [initialCharacter]);
     }
     
     // 다이어리는 빈 배열로 시작
-    await setData(STORAGE_KEYS.DIARIES, []);
+    await setData(storageKeys.DIARIES, []);
     
     return {
       success: true,

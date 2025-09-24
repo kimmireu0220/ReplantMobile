@@ -1,9 +1,10 @@
-import { getData, updateData, STORAGE_KEYS } from './storage';
+import { getData, updateData, getStorageKeys } from './storage';
 
 // 캐릭터 자동 레벨업
-export const autoLevelupCharacter = async (characterId, experienceGained) => {
+export const autoLevelupCharacter = async (characterId, experienceGained, nickname) => {
   try {
-    const characters = await getData(STORAGE_KEYS.CHARACTERS);
+    const storageKeys = getStorageKeys(nickname);
+    const characters = await getData(storageKeys.CHARACTERS);
     const character = characters.find(c => c.id === characterId);
     
     if (!character) {
@@ -25,7 +26,7 @@ export const autoLevelupCharacter = async (characterId, experienceGained) => {
       total_experience: (character.total_experience || 0) + experienceGained
     };
     
-    await updateData(STORAGE_KEYS.CHARACTERS, characterId, updatedCharacter);
+    await updateData(storageKeys.CHARACTERS, characterId, updatedCharacter);
     
     return {
       success: true,
@@ -44,9 +45,10 @@ export const autoLevelupCharacter = async (characterId, experienceGained) => {
 };
 
 // 캐릭터 생성
-export const createCharacter = async (characterData) => {
+export const createCharacter = async (characterData, nickname) => {
   try {
-    const characters = await getData(STORAGE_KEYS.CHARACTERS);
+    const storageKeys = getStorageKeys(nickname);
+    const characters = await getData(storageKeys.CHARACTERS);
     const newCharacter = {
       id: `character_${Date.now()}`,
       ...characterData,
@@ -54,7 +56,7 @@ export const createCharacter = async (characterData) => {
     };
     
     const updatedCharacters = [...characters, newCharacter];
-    await setData(STORAGE_KEYS.CHARACTERS, updatedCharacters);
+    await setData(storageKeys.CHARACTERS, updatedCharacters);
     
     return {
       success: true,
@@ -70,9 +72,10 @@ export const createCharacter = async (characterData) => {
 };
 
 // 캐릭터 조회
-export const getCharacter = async (characterId) => {
+export const getCharacter = async (characterId, nickname) => {
   try {
-    const characters = await getData(STORAGE_KEYS.CHARACTERS);
+    const storageKeys = getStorageKeys(nickname);
+    const characters = await getData(storageKeys.CHARACTERS);
     return characters.find(c => c.id === characterId);
   } catch (error) {
     console.error('캐릭터 조회 실패:', error);
@@ -81,9 +84,10 @@ export const getCharacter = async (characterId) => {
 };
 
 // 모든 캐릭터 조회
-export const getAllCharacters = async () => {
+export const getAllCharacters = async (nickname) => {
   try {
-    return await getData(STORAGE_KEYS.CHARACTERS);
+    const storageKeys = getStorageKeys(nickname);
+    return await getData(storageKeys.CHARACTERS);
   } catch (error) {
     console.error('캐릭터 목록 조회 실패:', error);
     return [];
