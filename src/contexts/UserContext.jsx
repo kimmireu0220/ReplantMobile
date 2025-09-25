@@ -120,6 +120,47 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // 닉네임 변경
+  const updateNickname = useCallback(async (newNickname) => {
+    try {
+      if (!currentNickname || !newNickname) {
+        throw new Error('닉네임이 필요합니다.');
+      }
+
+      // 기존 데이터 백업
+      const oldStorageKeys = getStorageKeys(currentNickname);
+      const newStorageKeys = getStorageKeys(newNickname);
+      
+      // 모든 기존 데이터를 새 닉네임으로 복사
+      const allKeys = await AsyncStorage.getAllKeys();
+      const userKeys = allKeys.filter(key => key.includes(currentNickname));
+      
+      for (const key of userKeys) {
+        const value = await AsyncStorage.getItem(key);
+        if (value) {
+          const newKey = key.replace(currentNickname, newNickname);
+          await AsyncStorage.setItem(newKey, value);
+        }
+      }
+      
+      // 기존 데이터 삭제
+      await AsyncStorage.multiRemove(userKeys);
+      
+      // 사용자 정보 업데이트
+      setUser({ 
+        nickname: newNickname, 
+        id: user?.id || `user_${Date.now()}` 
+      });
+      setCurrentNickname(newNickname);
+      
+      logUserAction('nickname_updated', { oldNickname: currentNickname, newNickname });
+      return { success: true };
+    } catch (error) {
+      logError('닉네임 변경 실패', error);
+      return { success: false, error: error.message };
+    }
+  }, [currentNickname, user?.id]);
+
   // 메모이제이션된 Context 값
   const value = useMemo(() => ({
     user,
@@ -128,8 +169,9 @@ export const UserProvider = ({ children }) => {
     login,
     logout,
     refreshUser,
+    updateNickname,
     isLoading,
-  }), [user, currentNickname, login, logout, refreshUser, isLoading]);
+  }), [user, currentNickname, login, logout, refreshUser, updateNickname, isLoading]);
 
   return (
     <UserContext.Provider value={value}>
